@@ -383,8 +383,9 @@ export class Validator {
                 else {
                     response.messageText = this.messages.getMessageById("mustHaveExactlyNSF", [n]);
                 }
-                return;
             }
+
+            return;
         }
 
         if (request.constraints["mustHaveAtLeastNSF"] !== undefined) {
@@ -431,8 +432,9 @@ export class Validator {
                 else {
                     response.messageText = this.messages.getMessageById("mustHaveExactlyNDP", [n]);
                 }
-                return;
             }
+
+            return;
         }
 
         if (request.constraints["mustHaveAtLeastNDP"] !== undefined) {

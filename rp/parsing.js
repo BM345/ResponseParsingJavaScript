@@ -263,7 +263,7 @@ export class Parser {
                 return null;
             }
             else {
-                node = new nodes.RPNumberNode();
+                var node = new nodes.RPNumberNode();
 
                 node.subtype = subtype;
 
@@ -271,7 +271,7 @@ export class Parser {
                 node.end = end;
                 node._text = ts + t;
 
-                s = ts;
+                var s = ts;
 
                 if (sign == "positive") {
                     if (this.settings.normaliseSigns == "makeExplicit") {

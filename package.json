@@ -1,0 +1,26 @@
+{
+  "name": "responseparsingjavascript",
+  "version": "1.5.0",
+  "description": "A JavaScript port of the ResponseParsingPython library",
+  "main": "validation.js",
+  "scripts": {
+    "test": "TESTBUILD=true webpack && mocha test-output/main.js",
+    "build": "npx webpack --config webpack.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BM345/ResponseParsingJavaScript.git"
+  },
+  "author": "BM345",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BM345/ResponseParsingJavaScript/issues"
+  },
+  "homepage": "https://github.com/BM345/ResponseParsingJavaScript#readme",
+  "devDependencies": {
+    "mocha": "^8.1.1",
+    "mocha-loader": "^5.1.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}

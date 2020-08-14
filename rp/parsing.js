@@ -49,7 +49,7 @@ export class Parser {
 
         this.parseWhiteSpace(inputText, marker);
 
-        if (number != null && marker.position == inputText.length) {
+        if (number !== null && marker.position == inputText.length) {
             return number;
         }
 
@@ -194,112 +194,112 @@ export class Parser {
             else {
                 break;
             }
+        }
 
-            var allZero = (nsf == 0 && t.length > 0) ? true : false;
+        var allZero = (nsf == 0 && t.length > 0) ? true : false;
 
-            var minimumNSF = 0;
-            var maximumNSF = 0;
+        var minimumNSF = 0;
+        var maximumNSF = 0;
 
-            if (allZero) {
-                minimumNSF = 1;
-                maximumNSF = 1;
-                if (q > 0) {
-                    ntz = ndp;
-                }
+        if (allZero) {
+            minimumNSF = 1;
+            maximumNSF = 1;
+            if (q > 0) {
+                ntz = ndp;
+            }
+        }
+        else {
+            if (q > 0) {
+                minimumNSF = nsf + p;
+                maximumNSF = nsf + p;
+
+                ntz = p;
             }
             else {
-                if (q > 0) {
-                    minimumNSF = nsf + p;
-                    maximumNSF = nsf + p;
-
-                    ntz = p;
-                }
-                else {
-                    minimumNSF = nsf;
-                    maximumNSF = nsf + p;
-                }
+                minimumNSF = nsf;
+                maximumNSF = nsf + p;
             }
+        }
 
-            var end = marker.position;
+        var end = marker.position;
 
-            var subtype = (q == 0) ? "integer" : "decimalNumber";
+        var subtype = (q == 0) ? "integer" : "decimalNumber";
 
-            var t1 = "";
-            var t2 = "";
+        var t1 = "";
+        var t2 = "";
 
-            if (this.settings.removeTrailingZerosFromSimplifiedForms && ntz > 0) {
-                t2 = decimalPart.substr(0, decimalPart.length - ntz);
+        if (this.settings.removeTrailingZerosFromSimplifiedForms && ntz > 0) {
+            t2 = decimalPart.substr(0, decimalPart.length - ntz);
+        }
+        else {
+            t2 = decimalPart;
+        }
+
+        t2 = (t2 == "." && this.settings.removeTrailingDecimalPointFromSimplifiedForms) ? "" : t2;
+
+        if (integralPart == "" && (decimalPart == "" || decimalPart == ".")) {
+            t1 = "";
+        }
+        else if (integralPart == "") {
+            if (this.settings.addLeadingZeroToDecimalsForSimplifiedForms) {
+                t1 = "0";
             }
             else {
-                t2 = decimalPart;
-            }
-
-            t2 = (t2 == "." && this.settings.removeTrailingDecimalPointFromSimplifiedForms) ? "" : t2;
-
-            if (integralPart == "" && (decimalPart == "" || decimalPart == ".")) {
                 t1 = "";
             }
-            else if (integralPart == "") {
+        }
+        else {
+            if (this.settings.removeLeadingZerosFromSimplifiedForms) {
+                t1 = integralPart.substr(nlz);
                 if (this.settings.addLeadingZeroToDecimalsForSimplifiedForms) {
-                    t1 = "0";
+                    t1 = (t1 == "") ? "0" : t1;
                 }
                 else {
-                    t1 = "";
+                    t1 = integralPart;
                 }
             }
-            else {
-                if (this.settings.removeLeadingZerosFromSimplifiedForms) {
-                    t1 = integralPart.substr(nlz);
-                    if (this.settings.addLeadingZeroToDecimalsForSimplifiedForms) {
-                        t1 = (t1 == "") ? "0" : t1;
-                    }
-                    else {
-                        t1 = integralPart;
-                    }
+        }
+
+        if (ts + t == "") {
+            return null;
+        }
+        else {
+            var node = new nodes.RPNumberNode();
+
+            node.subtype = subtype;
+
+            node.start = start;
+            node.end = end;
+            node._text = ts + t;
+
+            var s = ts;
+
+            if (sign == "positive") {
+                if (this.settings.normaliseSigns == "makeExplicit") {
+                    s = "+";
+                }
+                else if (this.settings.normaliseSigns == "makeImplicit") {
+                    s = "";
                 }
             }
 
-            if (ts + t == "") {
-                return null;
-            }
-            else {
-                var node = new nodes.RPNumberNode();
+            node.value = (allZero) ? t1 + t2 : s + t1 + t2;
 
-                node.subtype = subtype;
+            node.integralPart = integralPart;
+            node.decimalPart = decimalPart;
 
-                node.start = start;
-                node.end = end;
-                node._text = ts + t;
+            node.sign = sign;
+            node.signIsExplicit = signIsExplicit;
+            node.isZero = allZero;
+            node.integralPartIsZero = integralPartIsZero;
+            node.decimalPartIsZero = decimalPartIsZero;
+            node.numberOfLeadingZeros = nlz;
+            node.numberOfTrailingZeros = ntz;
+            node.minimumNumberOfSignificantFigures = minimumNSF;
+            node.maximumNumberOfSignificantFigures = maximumNSF;
+            node.numberOfDecimalPlaces = ndp;
 
-                var s = ts;
-
-                if (sign == "positive") {
-                    if (this.settings.normaliseSigns == "makeExplicit") {
-                        s = "+";
-                    }
-                    else if (this.settings.normaliseSigns == "makeImplicit") {
-                        s = "";
-                    }
-                }
-
-                node.value = (allZero) ? t1 + t2 : s + t1 + t2;
-
-                node.integralPart = integralPart;
-                node.decimalPart = decimalPart;
-
-                node.sign = sign;
-                node.signIsExplicit = signIsExplicit;
-                node.isZero = allZero;
-                node.integralPartIsZero = integralPartIsZero;
-                node.decimalPartIsZero = decimalPartIsZero;
-                node.numberOfLeadingZeros = nlz;
-                node.numberOfTrailingZeros = ntz;
-                node.minimumNumberOfSignificantFigures = minimumNSF;
-                node.maximumNumberOfSignificantFigures = maximumNSF;
-                node.numberOfDecimalPlaces = ndp;
-
-                return node;
-            }
+            return node;
         }
     }
 }

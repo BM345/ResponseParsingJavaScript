@@ -263,7 +263,6 @@ export class Parser {
                 return null;
             }
             else {
-
                 node = new nodes.RPNumberNode();
 
                 node.subtype = subtype;

@@ -43,8 +43,24 @@ describe("Integers", function () {
 
             var parseResult = parser.getParseResult(studentsResponse);
 
-            it(`should see that ${studentsResponse} is a number`, function () {
-                assert.equal(parseResult.type, "number");
+            describe(`Parsing "${studentsResponse}"`, function () {
+
+                it(`The parser should identify it as a number.`, function () {
+                    assert.equal(parseResult.type, "number");
+                });
+
+                it(`The parser should identify it as an integer.`, function () {
+                    assert.equal(parseResult.subtype, "integer");
+                });
+
+                it(`The parser should identify "${integralPart}" as the integral part.`, function () {
+                    assert.equal(parseResult.integralPart, integralPart);
+                });
+
+                it(`The parser should identify "${decimalPart}" as the decimal part.`, function () {
+                    assert.equal(parseResult.decimalPart, decimalPart);
+                });
+
             });
         });
     });

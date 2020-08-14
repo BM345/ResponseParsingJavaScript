@@ -61,6 +61,42 @@ describe("Integers", function () {
                     assert.equal(parseResult.decimalPart, decimalPart);
                 });
 
+                it(`The parser should identify that the sign is ${sign}.`, function () {
+                    assert.equal(parseResult.sign, sign);
+                });
+
+                it(`The parser should identify that the sign is ${(signIsExplicit) ? "explicit" : "implicit"}.`, function () {
+                    assert.equal(parseResult.signIsExplicit, signIsExplicit);
+                });
+
+                it(`The parser should identify that it has ${nlz} leading zeros.`, function () {
+                    assert.equal(parseResult.numberOfLeadingZeros, nlz);
+                });
+
+                it(`The parser should identify that it has ${ntz} trailing zeros.`, function () {
+                    assert.equal(parseResult.numberOfTrailingZeros, ntz);
+                });
+
+                it(`The parser should identify that it has at least ${nsf1} significant figures.`, function () {
+                    assert.equal(parseResult.minimumNumberOfSignificantFigures, nsf1);
+                });
+
+                it(`The parser should identify that it has no more than ${nsf2} significant figures.`, function () {
+                    assert.equal(parseResult.maximumNumberOfSignificantFigures, nsf2);
+                });
+
+                it(`The parser should identify that it has ${ndp} decimal places.`, function () {
+                    assert.equal(parseResult.numberOfDecimalPlaces, ndp);
+                });
+
+                it(`The parser should identify that it is equal to zero.`, function () {
+                    assert.equal(parseResult.isZero, isZero);
+                });
+
+                it(`The parser should identify that the integral part is equal to zero.`, function () {
+                    assert.equal(parseResult.integralPartIsZero, integralPartIsZero);
+                });
+
             });
         });
     });

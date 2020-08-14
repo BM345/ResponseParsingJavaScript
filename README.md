@@ -11,3 +11,11 @@ Run
 ```bash
 npx webpack --config webpack.config.js
 ```
+
+## Test Process
+
+Run
+
+```bash
+npm test
+```

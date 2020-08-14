@@ -7,6 +7,11 @@ let entry = {
 
 let outputFolder = "distribution";
 
+if (process.env.TESTBUILD) {
+    entry = glob.sync(__dirname + "/test/*.test.js");
+    outputFolder = "test-output";
+}
+
 module.exports = {
     entry: entry,
     output: {

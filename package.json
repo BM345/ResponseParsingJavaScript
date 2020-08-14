@@ -1,0 +1,19 @@
+{
+  "name": "responseparsingjavascript",
+  "version": "1.5.0",
+  "description": "A JavaScript port of the ResponseParsingPython library",
+  "main": "validation.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BM345/ResponseParsingJavaScript.git"
+  },
+  "author": "BM345",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BM345/ResponseParsingJavaScript/issues"
+  },
+  "homepage": "https://github.com/BM345/ResponseParsingJavaScript#readme"
+}

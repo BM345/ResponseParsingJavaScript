@@ -1,4 +1,5 @@
 
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 export class ValueError extends Error {
     constructor(...params) {
@@ -12,6 +13,8 @@ export class Messages {
 
         this.messagesFile = messagesFile;
         this.messages = [];
+
+        return;
 
         var httpRequest = new XMLHttpRequest();
 
@@ -32,6 +35,7 @@ export class Messages {
 
     getMessageById(i, parameters = []) {
         if (this.messages.filter(m => m["id"] == i).length == 0) {
+            return "";
             throw new ValueError("There is no message with the id '" + i.toString() + "' in " + this.messagesFile + ".");
         }
 

@@ -27,11 +27,11 @@ export class ParserSettings {
     }
 }
 
-function cut(text, startIndex, length = 1) {
+export function cut(text, startIndex, length = 1) {
     return text.substr(startIndex, length);
 }
 
-function isOneOf(character, characters) {
+export function isOneOf(character, characters) {
     return characters.indexOf(character) >= 0;
 }
 

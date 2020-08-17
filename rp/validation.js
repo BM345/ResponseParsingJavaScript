@@ -35,7 +35,7 @@ export class Validator {
     }
 
     validate(request) {
-        if (request.constraints === null) {
+        if (request.constraints === null || request.constraints === undefined) {
             request.constraints = {};
         }
 
@@ -369,7 +369,7 @@ export class Validator {
     _applySignificantFigureConstraints(request, result, response) {
 
         if (request.constraints["mustHaveExactlyNSF"] !== undefined) {
-            n = request.constraints["mustHaveExactlyNSF"];
+            var n = request.constraints["mustHaveExactlyNSF"];
 
             if (result.maximumNumberOfSignificantFigures < n || result.minimumNumberOfSignificantFigures > n) {
                 response.isAccepted = false;
@@ -385,7 +385,7 @@ export class Validator {
         }
 
         if (request.constraints["mustHaveAtLeastNSF"] !== undefined) {
-            n = request.constraints["mustHaveAtLeastNSF"];
+            var n = request.constraints["mustHaveAtLeastNSF"];
 
             if (result.maximumNumberOfSignificantFigures < n) {
                 response.isAccepted = false;
@@ -400,7 +400,7 @@ export class Validator {
         }
 
         if (request.constraints["mustHaveNoMoreThanNSF"] !== undefined) {
-            n = request.constraints["mustHaveNoMoreThanNSF"];
+            var n = request.constraints["mustHaveNoMoreThanNSF"];
 
             if (result.minimumNumberOfSignificantFigures > n) {
                 response.isAccepted = false;
@@ -418,7 +418,7 @@ export class Validator {
     _applyDecimalPlaceConstraints(request, result, response) {
 
         if (request.constraints["mustHaveExactlyNDP"] !== undefined) {
-            n = request.constraints["mustHaveExactlyNDP"];
+            var n = request.constraints["mustHaveExactlyNDP"];
 
             if (result.numberOfDecimalPlaces != n) {
                 response.isAccepted = false;
@@ -434,7 +434,7 @@ export class Validator {
         }
 
         if (request.constraints["mustHaveAtLeastNDP"] !== undefined) {
-            n = request.constraints["mustHaveAtLeastNDP"];
+            var n = request.constraints["mustHaveAtLeastNDP"];
 
             if (result.numberOfDecimalPlaces < n) {
                 response.isAccepted = false;
@@ -449,7 +449,7 @@ export class Validator {
         }
 
         if (request.constraints["mustHaveNoMoreThanNDP"] !== undefined) {
-            n = request.constraints["mustHaveNoMoreThanNDP"];
+            var n = request.constraints["mustHaveNoMoreThanNDP"];
 
             if (result.numberOfDecimalPlaces > n) {
                 response.isAccepted = false;

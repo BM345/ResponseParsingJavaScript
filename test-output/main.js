@@ -10834,7 +10834,7 @@ class parsing_Parser {
             }
         }
 
-        var allZero = (nsf == 0 && t.length > 0) ? true : false;
+        var allZero = (nsf === 0 && t.length > 0) ? true : false;
 
         var minimumNSF = 0;
         var maximumNSF = 0;
@@ -10892,9 +10892,9 @@ class parsing_Parser {
                 if (this.settings.addLeadingZeroToDecimalsForSimplifiedForms) {
                     t1 = (t1 == "") ? "0" : t1;
                 }
-                else {
-                    t1 = integralPart;
-                }
+            }
+            else {
+                t1 = integralPart;
             }
         }
 
@@ -10912,16 +10912,16 @@ class parsing_Parser {
 
             var s = ts;
 
-            if (sign == "positive") {
-                if (this.settings.normaliseSigns == "makeExplicit") {
+            if (sign === "positive") {
+                if (this.settings.normaliseSigns === "makeExplicit") {
                     s = "+";
                 }
-                else if (this.settings.normaliseSigns == "makeImplicit") {
+                else if (this.settings.normaliseSigns === "makeImplicit") {
                     s = "";
                 }
             }
 
-            node.value = (allZero) ? t1 + t2 : s + t1 + t2;
+            node.value = (allZero === true) ? t1 + t2 : s + t1 + t2;
 
             node.integralPart = integralPart;
             node.decimalPart = decimalPart;
@@ -11783,7 +11783,7 @@ describe("Integers", function () {
                     assert_default.a.equal(response.isAccepted, isAccepted);
                 });
 
-                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function(){
+                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}". "${response.expression.integralPartIsZero}"`, function(){
                     assert_default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 

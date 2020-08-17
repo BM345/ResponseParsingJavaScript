@@ -106,7 +106,7 @@ describe("Integers", function () {
         });
     });
 
-    describe("Validating integers", function(){
+    describe("Validating integers", function () {
         [
             ["123", {}, true, "123"],
             ["123", constraints.allowLeadingZeros, true, "123"],
@@ -203,23 +203,23 @@ describe("Integers", function () {
 
             var response = validator.validate(request);
 
-            describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function(){
+            describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
-                it(`The validator should${isAccepted?"":" not"} accept it.`, function(){
+                it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
                     assert.equal(response.isAccepted, isAccepted);
                 });
 
-                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function(){
+                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function () {
                     assert.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
                 var integer = response.expression;
 
-                it(`The expression should have the type "number".`, function(){
+                it(`The expression should have the type "number".`, function () {
                     assert.equal(integer.type, "number");
                 });
 
-                it(`The expression should have the subtype "integer".`, function(){
+                it(`The expression should have the subtype "integer".`, function () {
                     assert.equal(integer.subtype, "integer");
                 });
 

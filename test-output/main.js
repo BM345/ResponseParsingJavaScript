@@ -90,30 +90,30 @@
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return allowLeadingZeros; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return removeLeadingZerosFromNormalizedForm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return dontAllowTrailingZeros; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return removeTrailingZerosFromNormalizedForm; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return dontRemoveTrailingDecimalPoint; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return mustHavePlus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return mustNotHavePlus; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return makeExplicit; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return makeImplicit; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return mustHaveAtLeast3SF; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return mustHaveAtLeast5SF; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return mustHaveNoMoreThan3SF; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return mustHaveNoMoreThan6SF; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return mustHaveExactly3SF; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return mustHaveExactly5SF; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return mustHaveAtLeast3DP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "t", function() { return removeLeadingZerosFromNormalizedForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return dontAllowTrailingZeros; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "u", function() { return removeTrailingZerosFromNormalizedForm; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return dontRemoveTrailingDecimalPoint; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "q", function() { return mustHavePlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "r", function() { return mustNotHavePlus; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return makeExplicit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "g", function() { return makeImplicit; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return mustHaveAtLeast3SF; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "j", function() { return mustHaveAtLeast5SF; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "o", function() { return mustHaveNoMoreThan3SF; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "p", function() { return mustHaveNoMoreThan6SF; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return mustHaveExactly3SF; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "m", function() { return mustHaveExactly5SF; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "h", function() { return mustHaveAtLeast3DP; });
 /* unused harmony export mustHaveAtLeast5DP */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "l", function() { return mustHaveNoMoreThan3DP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "n", function() { return mustHaveNoMoreThan3DP; });
 /* unused harmony export mustHaveNoMoreThan6DP */
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "i", function() { return mustHaveExactly3DP; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "k", function() { return mustHaveExactly3DP; });
 /* unused harmony export mustHaveExactly5DP */
-/* unused harmony export dollars */
-/* unused harmony export pounds */
-/* unused harmony export egp */
-/* unused harmony export sar */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return dollars; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "s", function() { return pounds; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return egp; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "v", function() { return sar; });
 
 
 var allowLeadingZeros = {
@@ -728,36 +728,10 @@ var objectKeys = Object.keys || function (obj) {
   return keys;
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ }),
 /* 2 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -997,14 +971,14 @@ class Parser {
         var t1 = "";
         var t2 = "";
 
-        if (this.settings.removeTrailingZerosFromSimplifiedForms && ntz > 0) {
+        if (this.settings.removeTrailingZerosFromSimplifiedForms === true && ntz > 0) {
             t2 = decimalPart.substr(0, decimalPart.length - ntz);
         }
         else {
             t2 = decimalPart;
         }
 
-        t2 = (t2 == "." && this.settings.removeTrailingDecimalPointFromSimplifiedForms) ? "" : t2;
+        t2 = (t2 === "." && this.settings.removeTrailingDecimalPointFromSimplifiedForms === true) ? "" : t2;
 
         if (integralPart == "" && (decimalPart == "" || decimalPart == ".")) {
             t1 = "";
@@ -1075,6 +1049,32 @@ class Parser {
 
 
 /***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1090,7 +1090,7 @@ __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding *
 var nodes = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./rp/parsing.js
-var parsing = __webpack_require__(3);
+var parsing = __webpack_require__(2);
 
 // CONCATENATED MODULE: ./rp/messages.js
 
@@ -1807,6 +1807,17 @@ process.umask = function() { return 0; };
 
 /***/ }),
 /* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return merge; });
+
+function merge() {
+    return Object.assign({}, ...arguments);
+}
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports) {
 
 if (typeof Object.create === 'function') {
@@ -1839,7 +1850,7 @@ if (typeof Object.create === 'function') {
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3633,10 +3644,10 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3686,7 +3697,7 @@ module.exports = Duplex;
 
 /*<replacement>*/
 var util = Object.create(__webpack_require__(10));
-util.inherits = __webpack_require__(6);
+util.inherits = __webpack_require__(7);
 /*</replacement>*/
 
 var Readable = __webpack_require__(21);
@@ -3771,17 +3782,6 @@ Duplex.prototype._destroy = function (err, cb) {
 
   pna.nextTick(cb, err);
 };
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return merge; });
-
-function merge() {
-    return Object.assign({}, ...arguments);
-}
 
 /***/ }),
 /* 10 */
@@ -3895,7 +3895,7 @@ function objectToString(o) {
   return Object.prototype.toString.call(o);
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8).Buffer))
 
 /***/ }),
 /* 11 */
@@ -4101,7 +4101,7 @@ function nextTick(fn, arg1, arg2, arg3) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* eslint-disable node/no-deprecated-api */
-var buffer = __webpack_require__(7)
+var buffer = __webpack_require__(8)
 var Buffer = buffer.Buffer
 
 // alternative to using Object.keys for old browsers
@@ -5009,7 +5009,7 @@ http.METHODS = [
 	'UNLOCK',
 	'UNSUBSCRIBE'
 ]
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ }),
 /* 18 */
@@ -5089,14 +5089,14 @@ function isFunction (value) {
 
 xhr = null // Help gc
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(process, Buffer, global) {var capability = __webpack_require__(18)
-var inherits = __webpack_require__(6)
+var inherits = __webpack_require__(7)
 var stream = __webpack_require__(20)
 
 var rStates = exports.readyStates = {
@@ -5320,7 +5320,7 @@ IncomingMessage.prototype._onXHRProgress = function () {
 	}
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5), __webpack_require__(7).Buffer, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5), __webpack_require__(8).Buffer, __webpack_require__(3)))
 
 /***/ }),
 /* 20 */
@@ -5330,7 +5330,7 @@ exports = module.exports = __webpack_require__(21);
 exports.Stream = exports;
 exports.Readable = exports;
 exports.Writable = __webpack_require__(25);
-exports.Duplex = __webpack_require__(8);
+exports.Duplex = __webpack_require__(9);
 exports.Transform = __webpack_require__(27);
 exports.PassThrough = __webpack_require__(50);
 
@@ -5407,7 +5407,7 @@ function _isUint8Array(obj) {
 
 /*<replacement>*/
 var util = Object.create(__webpack_require__(10));
-util.inherits = __webpack_require__(6);
+util.inherits = __webpack_require__(7);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -5441,7 +5441,7 @@ function prependListener(emitter, event, fn) {
 }
 
 function ReadableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(8);
+  Duplex = Duplex || __webpack_require__(9);
 
   options = options || {};
 
@@ -5518,7 +5518,7 @@ function ReadableState(options, stream) {
 }
 
 function Readable(options) {
-  Duplex = Duplex || __webpack_require__(8);
+  Duplex = Duplex || __webpack_require__(9);
 
   if (!(this instanceof Readable)) return new Readable(options);
 
@@ -6359,7 +6359,7 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(5)))
 
 /***/ }),
 /* 22 */
@@ -7003,7 +7003,7 @@ Writable.WritableState = WritableState;
 
 /*<replacement>*/
 var util = Object.create(__webpack_require__(10));
-util.inherits = __webpack_require__(6);
+util.inherits = __webpack_require__(7);
 /*</replacement>*/
 
 /*<replacement>*/
@@ -7036,7 +7036,7 @@ util.inherits(Writable, Stream);
 function nop() {}
 
 function WritableState(options, stream) {
-  Duplex = Duplex || __webpack_require__(8);
+  Duplex = Duplex || __webpack_require__(9);
 
   options = options || {};
 
@@ -7186,7 +7186,7 @@ if (typeof Symbol === 'function' && Symbol.hasInstance && typeof Function.protot
 }
 
 function Writable(options) {
-  Duplex = Duplex || __webpack_require__(8);
+  Duplex = Duplex || __webpack_require__(9);
 
   // Writable ctor is applied to Duplexes, too.
   // `realHasInstance` is necessary because using plain `instanceof`
@@ -7623,7 +7623,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5), __webpack_require__(47).setImmediate, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5), __webpack_require__(47).setImmediate, __webpack_require__(3)))
 
 /***/ }),
 /* 26 */
@@ -7999,11 +7999,11 @@ function simpleEnd(buf) {
 
 module.exports = Transform;
 
-var Duplex = __webpack_require__(8);
+var Duplex = __webpack_require__(9);
 
 /*<replacement>*/
 var util = Object.create(__webpack_require__(10));
-util.inherits = __webpack_require__(6);
+util.inherits = __webpack_require__(7);
 /*</replacement>*/
 
 util.inherits(Transform, Duplex);
@@ -8153,7 +8153,8 @@ function done(stream, er, data) {
 
 __webpack_require__(29);
 __webpack_require__(55);
-module.exports = __webpack_require__(56);
+__webpack_require__(56);
+module.exports = __webpack_require__(57);
 
 
 /***/ }),
@@ -8164,10 +8165,10 @@ module.exports = __webpack_require__(56);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
-/* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+/* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
 
 
 
@@ -8179,225 +8180,64 @@ var merge = _test_general_js__WEBPACK_IMPORTED_MODULE_4__[/* merge */ "a"];
 var parser = new _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__[/* Parser */ "a"]();
 var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
 
-describe("Decimals", function () {
-    describe("Parsing decimals", function () {
+describe("Currency Values", function () {
+      describe("Validating currency values", function () {
         [
-            ["1.23", "1", ".23", "positive", false, 0, 0, 3, 3, 2, false, false],
-            [" 1.23 ", "1", ".23", "positive", false, 0, 0, 3, 3, 2, false, false],
-            ["   1.23   ", "1", ".23", "positive", false, 0, 0, 3, 3, 2, false, false],
-            ["+1.23", "1", ".23", "positive", true, 0, 0, 3, 3, 2, false, false],
-            [" + 1.23 ", "1", ".23", "positive", true, 0, 0, 3, 3, 2, false, false],
-            ["   +   1.23   ", "1", ".23", "positive", true, 0, 0, 3, 3, 2, false, false],
-            ["-1.23", "1", ".23", "negative", true, 0, 0, 3, 3, 2, false, false],
-            [" - 1.23 ", "1", ".23", "negative", true, 0, 0, 3, 3, 2, false, false],
-            ["   -   1.23   ", "1", ".23", "negative", true, 0, 0, 3, 3, 2, false, false],
-            ["0.123", "0", ".123", "positive", false, 1, 0, 3, 3, 3, false, true],
-            ["000.123", "000", ".123", "positive", false, 3, 0, 3, 3, 3, false, true],
-            [".123", "", ".123", "positive", false, 0, 0, 3, 3, 3, false, true],
-            ["123.", "123", ".", "positive", false, 0, 0, 3, 3, 0, false, false],
-            ["123.000", "123", ".000", "positive", false, 0, 3, 6, 6, 3, false, false],
-            ["-0.123", "0", ".123", "negative", true, 1, 0, 3, 3, 3, false, true],
-            ["-000.123", "000", ".123", "negative", true, 3, 0, 3, 3, 3, false, true],
-            ["-.123", "", ".123", "negative", true, 0, 0, 3, 3, 3, false, true],
-            ["-123.", "123", ".", "negative", true, 0, 0, 3, 3, 0, false, false],
-            ["-123.000", "123", ".000", "negative", true, 0, 3, 6, 6, 3, false, false],
-            ["0.00123", "0", ".00123", "positive", false, 1, 0, 3, 3, 5, false, true],
-            ["0.0012300456", "0", ".0012300456", "positive", false, 1, 0, 8, 8, 10, false, true],
-            ["0.00123000", "0", ".00123000", "positive", false, 1, 3, 6, 6, 8, false, true],
-            ["0.", "0", ".", "positive", false, 1, 0, 1, 1, 0, true, true],
-            [".0", "", ".0", "positive", false, 0, 1, 1, 1, 1, true, true],
-            ["0.0", "0", ".0", "positive", false, 1, 1, 1, 1, 1, true, true],
-            ["0.000", "0", ".000", "positive", false, 1, 3, 1, 1, 3, true, true],
-            ["000.0", "000", ".0", "positive", false, 3, 1, 1, 1, 1, true, true],
-            ["000.000", "000", ".000", "positive", false, 3, 3, 1, 1, 3, true, true],
-            ["+0.0", "0", ".0", "positive", true, 1, 1, 1, 1, 1, true, true],
-            ["-0.0", "0", ".0", "negative", true, 1, 1, 1, 1, 1, true, true],
-        ].forEach(a => {
-            var studentsResponse = a[0];
-            var integralPart = a[1];
-            var decimalPart = a[2];
-            var sign = a[3];
-            var signIsExplicit = a[4];
-            var nlz = a[5];
-            var ntz = a[6];
-            var nsf1 = a[7];
-            var nsf2 = a[8];
-            var ndp = a[9];
-            var isZero = a[10];
-            var integralPartIsZero = a[11];
-
-            var parseResult = parser.getParseResult(studentsResponse);
-
-            describe(`Parsing "${studentsResponse}"`, function () {
-
-                it(`The parser should identify it as a number.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.type, "number");
-                });
-
-                it(`The parser should identify it as a decimal number.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.subtype, "decimalNumber");
-                });
-
-                it(`The parser should identify "${integralPart}" as the integral part.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.integralPart, integralPart);
-                });
-
-                it(`The parser should identify "${decimalPart}" as the decimal part.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.decimalPart, decimalPart);
-                });
-
-                it(`The parser should identify that the sign is ${sign}.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.sign, sign);
-                });
-
-                it(`The parser should identify that the sign is ${(signIsExplicit) ? "explicit" : "implicit"}.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.signIsExplicit, signIsExplicit);
-                });
-
-                it(`The parser should identify that it has ${nlz} leading zeros.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.numberOfLeadingZeros, nlz);
-                });
-
-                it(`The parser should identify that it has ${ntz} trailing zeros.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.numberOfTrailingZeros, ntz);
-                });
-
-                it(`The parser should identify that it has at least ${nsf1} significant figures.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.minimumNumberOfSignificantFigures, nsf1);
-                });
-
-                it(`The parser should identify that it has no more than ${nsf2} significant figures.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.maximumNumberOfSignificantFigures, nsf2);
-                });
-
-                it(`The parser should identify that it has ${ndp} decimal places.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.numberOfDecimalPlaces, ndp);
-                });
-
-                it(`The parser should identify that it is${isZero ? "" : " not"} equal to zero.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.isZero, isZero);
-                });
-
-                it(`The parser should identify that the integral part is${integralPartIsZero ? "" : " not"} equal to zero.`, function () {
-                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.integralPartIsZero, integralPartIsZero);
-                });
-
-            });
-        });
-    });
-
-    describe("Validating decimals", function () {
-        [
-            ["123", {}, true, "123"],
-            ["1.23", {}, true, "1.23"],
-            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "1.23"],
-            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "1.23"],
-            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "1.23"],
-            ["+1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], false, "+1.23"],
-            ["+1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "+1.23"],
-            ["-1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "-1.23"],
-            ["-1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "-1.23"],
-            [" 1.23 ", {}, true, "1.23"],
-            ["   1.23   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "1.23"],
-            [" 1.23 ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "1.23"],
-            ["   1.23   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "1.23"],
-            ["001.23", {}, false, "001.23"],
-            ["001.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "001.23"],
-            ["+001.23", {}, false, "+001.23"],
-            ["+001.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "+001.23"],
-            ["+001.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"]), true, "+001.23"],
-            ["-001.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "-001.23"],
-            ["-001.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"]), true, "-001.23"],
-            ["0.12", {}, true, "0.12"],
-            ["0.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.12"],
-            [".12", {}, true, "0.12"],
-            [".12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.12"],
-            ["00.12", {}, false, "00.12"],
-            ["00.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "00.12"],
-            ["0", {}, true, "0"],
-            ["0.", {}, true, "0"],
-            [".0", {}, true, "0.0"],
-            ["0.0", {}, true, "0.0"],
-            ["000.0", {}, false, "000.0"],
-            ["0.000", {}, true, "0.000"],
-            ["000.000", {}, false, "000.000"],
-            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0"],
-            ["0.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0"],
-            [".0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.0"],
-            ["0.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.0"],
-            ["000.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "000.0"],
-            ["0.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.000"],
-            ["000.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "000.000"],
-            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "0"],
-            ["0.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "0"],
-            [".0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "0.0"],
-            ["0.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "0.0"],
-            ["000.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "000.0"],
-            ["0.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "0.000"],
-            ["000.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "000.000"],
-            ["+0", {}, true, "0"],
-            ["+0.", {}, true, "0"],
-            ["+.0", {}, true, "0.0"],
-            ["+0.0", {}, true, "0.0"],
-            ["+000.0", {}, false, "000.0"],
-            ["+0.000", {}, true, "0.000"],
-            ["+000.000", {}, false, "000.000"],
-            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "0"],
-            ["+0.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "0"],
-            ["+.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "0.0"],
-            ["+0.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "0.0"],
-            ["+000.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "000.0"],
-            ["+0.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "0.000"],
-            ["+000.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "000.000"],
-            ["0.0012", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], false, "0.0012"],
-            ["0.00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "0.00123"],
-            ["0.001234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "0.001234"],
-            ["0.00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "h"], false, "0.00123"],
-            ["0.001234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "h"], false, "0.001234"],
-            ["0.0012345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "h"], true, "0.0012345"],
-            ["0.0012", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "0.0012"],
-            ["0.00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "0.00123"],
-            ["0.001234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], false, "0.001234"],
-            ["0.0012345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "n"], true, "0.0012345"],
-            ["0.00123456", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "n"], true, "0.00123456"],
-            ["0.001234567", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "n"], false, "0.001234567"],
-            ["0.0012", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], false, "0.0012"],
-            ["0.00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], true, "0.00123"],
-            ["0.001234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], false, "0.001234"],
-            ["0.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3DP */ "f"], false, "0.12"],
-            ["0.123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3DP */ "f"], true, "0.123"],
-            ["0.1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3DP */ "f"], true, "0.1234"],
-            ["0.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3DP */ "l"], true, "0.12"],
-            ["0.123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3DP */ "l"], true, "0.123"],
-            ["0.1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3DP */ "l"], false, "0.1234"],
-            ["0.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3DP */ "i"], false, "0.12"],
-            ["0.123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3DP */ "i"], true, "0.123"],
-            ["0.1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3DP */ "i"], false, "0.1234"],
-            ["01.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "1.23"],
-            ["001.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "1.23"],
-            ["0001.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "1.23"],
-            ["0.12", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "0.12"],
-            ["00.12", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "0.12"],
-            ["000.12", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "0.12"],
-            [".12", {}, true, "0.12"],
-            ["+1.23", {}, true, "+1.23"],
-            ["1.23", {}, true, "1.23"],
-            ["-1.23", {}, true, "-1.23"],
-            ["+1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "d"], true, "+1.23"],
-            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "d"], true, "+1.23"],
-            ["-1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "d"], true, "-1.23"],
-            ["+1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "e"], true, "1.23"],
-            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "e"], true, "1.23"],
-            ["-1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "e"], true, "-1.23"],
-            ["+", {}, false, "+"],
-            ["-", {}, false, "-"],
-            ["00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "12.000"],
-            ["00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontAllowTrailingZeros */ "b"]), false, "12.000"],
-            ["00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "r"]), true, "12"],
-            ["00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "r"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveTrailingDecimalPoint */ "c"]), true, "12."],
-            ["+00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "+12.000"],
-            ["+00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "r"]), true, "+12"],
-            ["+00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "r"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveTrailingDecimalPoint */ "c"]), true, "+12."],
+            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], true, "12"],
+            ["12.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], true, "12"],
+            ["12.", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveTrailingDecimalPoint */ "d"]), true, "12"],
+            ["12.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], false, "12"],
+            ["12.00", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], true, "12"],
+            ["12.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], false, "12"],
+            ["12.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "u"]), false, "12"],
+            ["-12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], true, "-12"],
+            ["-12.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], true, "-12"],
+            ["-12.", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveTrailingDecimalPoint */ "d"]), true, "-12"],
+            ["-12.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], false, "-12"],
+            ["-12.00", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], true, "-12"],
+            ["-12.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], false, "-12"],
+            ["-12.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "u"]), false, "-12"],
+            ["12.1", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], false, "12.1"],
+            ["12.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], true, "12.12"],
+            ["12.121", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], false, "12.121"],
+            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], true, "12"],
+            ["12.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], true, "12"],
+            ["12.", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveTrailingDecimalPoint */ "d"]), true, "12"],
+            ["12.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], false, "12"],
+            ["12.00", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], true, "12"],
+            ["12.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], false, "12"],
+            ["12.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "u"]), false, "12"],
+            ["12.1", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], false, "12.1"],
+            ["12.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], true, "12.12"],
+            ["12.121", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* pounds */ "s"], false, "12.121"],
+            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], true, "12"],
+            ["12.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], true, "12"],
+            ["12.", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveTrailingDecimalPoint */ "d"]), true, "12"],
+            ["12.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], false, "12"],
+            ["12.00", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], true, "12"],
+            ["12.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], false, "12"],
+            ["12.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "u"]), false, "12"],
+            ["12.1", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], false, "12.1"],
+            ["12.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], true, "12.12"],
+            ["12.121", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* egp */ "e"], false, "12.121"],
+            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], true, "12"],
+            ["12.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], true, "12"],
+            ["12.", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveTrailingDecimalPoint */ "d"]), true, "12"],
+            ["12.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], false, "12"],
+            ["12.00", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], true, "12"],
+            ["12.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], false, "12"],
+            ["12.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "u"]), false, "12"],
+            ["12.1", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], false, "12.1"],
+            ["12.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], true, "12.12"],
+            ["12.121", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* sar */ "v"], false, "12.121"],
+            ["012", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], false, "012"],
+            ["012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"]), true, "012"],
+            ["012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12"],
+            ["0012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12"],
+            ["00012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12"],
+            ["012.00", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12"],
+            ["0012.00", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12"],
+            ["00012.00", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12"],
         ].forEach(a => {
             var studentsResponse = a[0];
             var constraints = a[1];
@@ -8407,7 +8247,7 @@ describe("Decimals", function () {
             var request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
 
             request.studentsResponse = studentsResponse;
-            request.expectedResponseType = "decimal";
+            request.expectedResponseType = "currencyValue";
             request.constraints = constraints;
 
             var response = validator.validate(request);
@@ -9899,7 +9739,7 @@ exports.XMLHttpRequest = function() {
   };
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7).Buffer, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8).Buffer, __webpack_require__(5)))
 
 /***/ }),
 /* 35 */
@@ -10674,7 +10514,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(38)(module), __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(38)(module), __webpack_require__(3)))
 
 /***/ }),
 /* 38 */
@@ -10926,7 +10766,7 @@ var objectKeys = Object.keys || function (obj) {
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(Buffer, global, process) {var capability = __webpack_require__(18)
-var inherits = __webpack_require__(6)
+var inherits = __webpack_require__(7)
 var response = __webpack_require__(19)
 var stream = __webpack_require__(20)
 var toArrayBuffer = __webpack_require__(51)
@@ -11253,7 +11093,7 @@ var unsafeHeaders = [
 	'via'
 ]
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(7).Buffer, __webpack_require__(2), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8).Buffer, __webpack_require__(3), __webpack_require__(5)))
 
 /***/ }),
 /* 44 */
@@ -11420,7 +11260,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ }),
 /* 48 */
@@ -11613,7 +11453,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(5)))
 
 /***/ }),
 /* 49 */
@@ -11687,7 +11527,7 @@ function config (name) {
   return String(val).toLowerCase() === 'true';
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
 
 /***/ }),
 /* 50 */
@@ -11727,7 +11567,7 @@ var Transform = __webpack_require__(27);
 
 /*<replacement>*/
 var util = Object.create(__webpack_require__(10));
-util.inherits = __webpack_require__(6);
+util.inherits = __webpack_require__(7);
 /*</replacement>*/
 
 util.inherits(PassThrough, Transform);
@@ -11746,7 +11586,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 /* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Buffer = __webpack_require__(7).Buffer
+var Buffer = __webpack_require__(8).Buffer
 
 module.exports = function (buf) {
 	// If the buffer is backed by a Uint8Array, a faster version will work
@@ -11915,10 +11755,281 @@ function validateParams (params) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
-/* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+/* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
+
+
+
+
+
+
+var merge = _test_general_js__WEBPACK_IMPORTED_MODULE_4__[/* merge */ "a"];
+
+var parser = new _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__[/* Parser */ "a"]();
+var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
+
+describe("Decimals", function () {
+    describe("Parsing decimals", function () {
+        [
+            ["1.23", "1", ".23", "positive", false, 0, 0, 3, 3, 2, false, false],
+            [" 1.23 ", "1", ".23", "positive", false, 0, 0, 3, 3, 2, false, false],
+            ["   1.23   ", "1", ".23", "positive", false, 0, 0, 3, 3, 2, false, false],
+            ["+1.23", "1", ".23", "positive", true, 0, 0, 3, 3, 2, false, false],
+            [" + 1.23 ", "1", ".23", "positive", true, 0, 0, 3, 3, 2, false, false],
+            ["   +   1.23   ", "1", ".23", "positive", true, 0, 0, 3, 3, 2, false, false],
+            ["-1.23", "1", ".23", "negative", true, 0, 0, 3, 3, 2, false, false],
+            [" - 1.23 ", "1", ".23", "negative", true, 0, 0, 3, 3, 2, false, false],
+            ["   -   1.23   ", "1", ".23", "negative", true, 0, 0, 3, 3, 2, false, false],
+            ["0.123", "0", ".123", "positive", false, 1, 0, 3, 3, 3, false, true],
+            ["000.123", "000", ".123", "positive", false, 3, 0, 3, 3, 3, false, true],
+            [".123", "", ".123", "positive", false, 0, 0, 3, 3, 3, false, true],
+            ["123.", "123", ".", "positive", false, 0, 0, 3, 3, 0, false, false],
+            ["123.000", "123", ".000", "positive", false, 0, 3, 6, 6, 3, false, false],
+            ["-0.123", "0", ".123", "negative", true, 1, 0, 3, 3, 3, false, true],
+            ["-000.123", "000", ".123", "negative", true, 3, 0, 3, 3, 3, false, true],
+            ["-.123", "", ".123", "negative", true, 0, 0, 3, 3, 3, false, true],
+            ["-123.", "123", ".", "negative", true, 0, 0, 3, 3, 0, false, false],
+            ["-123.000", "123", ".000", "negative", true, 0, 3, 6, 6, 3, false, false],
+            ["0.00123", "0", ".00123", "positive", false, 1, 0, 3, 3, 5, false, true],
+            ["0.0012300456", "0", ".0012300456", "positive", false, 1, 0, 8, 8, 10, false, true],
+            ["0.00123000", "0", ".00123000", "positive", false, 1, 3, 6, 6, 8, false, true],
+            ["0.", "0", ".", "positive", false, 1, 0, 1, 1, 0, true, true],
+            [".0", "", ".0", "positive", false, 0, 1, 1, 1, 1, true, true],
+            ["0.0", "0", ".0", "positive", false, 1, 1, 1, 1, 1, true, true],
+            ["0.000", "0", ".000", "positive", false, 1, 3, 1, 1, 3, true, true],
+            ["000.0", "000", ".0", "positive", false, 3, 1, 1, 1, 1, true, true],
+            ["000.000", "000", ".000", "positive", false, 3, 3, 1, 1, 3, true, true],
+            ["+0.0", "0", ".0", "positive", true, 1, 1, 1, 1, 1, true, true],
+            ["-0.0", "0", ".0", "negative", true, 1, 1, 1, 1, 1, true, true],
+        ].forEach(a => {
+            var studentsResponse = a[0];
+            var integralPart = a[1];
+            var decimalPart = a[2];
+            var sign = a[3];
+            var signIsExplicit = a[4];
+            var nlz = a[5];
+            var ntz = a[6];
+            var nsf1 = a[7];
+            var nsf2 = a[8];
+            var ndp = a[9];
+            var isZero = a[10];
+            var integralPartIsZero = a[11];
+
+            var parseResult = parser.getParseResult(studentsResponse);
+
+            describe(`Parsing "${studentsResponse}"`, function () {
+
+                it(`The parser should identify it as a number.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.type, "number");
+                });
+
+                it(`The parser should identify it as a decimal number.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.subtype, "decimalNumber");
+                });
+
+                it(`The parser should identify "${integralPart}" as the integral part.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.integralPart, integralPart);
+                });
+
+                it(`The parser should identify "${decimalPart}" as the decimal part.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.decimalPart, decimalPart);
+                });
+
+                it(`The parser should identify that the sign is ${sign}.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.sign, sign);
+                });
+
+                it(`The parser should identify that the sign is ${(signIsExplicit) ? "explicit" : "implicit"}.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.signIsExplicit, signIsExplicit);
+                });
+
+                it(`The parser should identify that it has ${nlz} leading zeros.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.numberOfLeadingZeros, nlz);
+                });
+
+                it(`The parser should identify that it has ${ntz} trailing zeros.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.numberOfTrailingZeros, ntz);
+                });
+
+                it(`The parser should identify that it has at least ${nsf1} significant figures.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.minimumNumberOfSignificantFigures, nsf1);
+                });
+
+                it(`The parser should identify that it has no more than ${nsf2} significant figures.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.maximumNumberOfSignificantFigures, nsf2);
+                });
+
+                it(`The parser should identify that it has ${ndp} decimal places.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.numberOfDecimalPlaces, ndp);
+                });
+
+                it(`The parser should identify that it is${isZero ? "" : " not"} equal to zero.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.isZero, isZero);
+                });
+
+                it(`The parser should identify that the integral part is${integralPartIsZero ? "" : " not"} equal to zero.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.integralPartIsZero, integralPartIsZero);
+                });
+
+            });
+        });
+    });
+
+    describe("Validating decimals", function () {
+        [
+            ["123", {}, true, "123"],
+            ["1.23", {}, true, "1.23"],
+            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "1.23"],
+            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "1.23"],
+            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "1.23"],
+            ["+1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], false, "+1.23"],
+            ["+1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "+1.23"],
+            ["-1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "-1.23"],
+            ["-1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "-1.23"],
+            [" 1.23 ", {}, true, "1.23"],
+            ["   1.23   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "1.23"],
+            [" 1.23 ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "1.23"],
+            ["   1.23   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "1.23"],
+            ["001.23", {}, false, "001.23"],
+            ["001.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "001.23"],
+            ["+001.23", {}, false, "+001.23"],
+            ["+001.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "+001.23"],
+            ["+001.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"]), true, "+001.23"],
+            ["-001.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "-001.23"],
+            ["-001.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"]), true, "-001.23"],
+            ["0.12", {}, true, "0.12"],
+            ["0.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.12"],
+            [".12", {}, true, "0.12"],
+            [".12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.12"],
+            ["00.12", {}, false, "00.12"],
+            ["00.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "00.12"],
+            ["0", {}, true, "0"],
+            ["0.", {}, true, "0"],
+            [".0", {}, true, "0.0"],
+            ["0.0", {}, true, "0.0"],
+            ["000.0", {}, false, "000.0"],
+            ["0.000", {}, true, "0.000"],
+            ["000.000", {}, false, "000.000"],
+            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0"],
+            ["0.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0"],
+            [".0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.0"],
+            ["0.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.0"],
+            ["000.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "000.0"],
+            ["0.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0.000"],
+            ["000.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "000.000"],
+            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "0"],
+            ["0.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "0"],
+            [".0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "0.0"],
+            ["0.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "0.0"],
+            ["000.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "000.0"],
+            ["0.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "0.000"],
+            ["000.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "000.000"],
+            ["+0", {}, true, "0"],
+            ["+0.", {}, true, "0"],
+            ["+.0", {}, true, "0.0"],
+            ["+0.0", {}, true, "0.0"],
+            ["+000.0", {}, false, "000.0"],
+            ["+0.000", {}, true, "0.000"],
+            ["+000.000", {}, false, "000.000"],
+            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "0"],
+            ["+0.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "0"],
+            ["+.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "0.0"],
+            ["+0.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "0.0"],
+            ["+000.0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "000.0"],
+            ["+0.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "0.000"],
+            ["+000.000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "000.000"],
+            ["0.0012", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], false, "0.0012"],
+            ["0.00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "0.00123"],
+            ["0.001234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "0.001234"],
+            ["0.00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "j"], false, "0.00123"],
+            ["0.001234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "j"], false, "0.001234"],
+            ["0.0012345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "j"], true, "0.0012345"],
+            ["0.0012", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "0.0012"],
+            ["0.00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "0.00123"],
+            ["0.001234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], false, "0.001234"],
+            ["0.0012345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "p"], true, "0.0012345"],
+            ["0.00123456", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "p"], true, "0.00123456"],
+            ["0.001234567", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "p"], false, "0.001234567"],
+            ["0.0012", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], false, "0.0012"],
+            ["0.00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], true, "0.00123"],
+            ["0.001234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], false, "0.001234"],
+            ["0.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3DP */ "h"], false, "0.12"],
+            ["0.123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3DP */ "h"], true, "0.123"],
+            ["0.1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3DP */ "h"], true, "0.1234"],
+            ["0.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3DP */ "n"], true, "0.12"],
+            ["0.123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3DP */ "n"], true, "0.123"],
+            ["0.1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3DP */ "n"], false, "0.1234"],
+            ["0.12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3DP */ "k"], false, "0.12"],
+            ["0.123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3DP */ "k"], true, "0.123"],
+            ["0.1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3DP */ "k"], false, "0.1234"],
+            ["01.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "1.23"],
+            ["001.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "1.23"],
+            ["0001.23", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "1.23"],
+            ["0.12", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "0.12"],
+            ["00.12", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "0.12"],
+            ["000.12", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "0.12"],
+            [".12", {}, true, "0.12"],
+            ["+1.23", {}, true, "+1.23"],
+            ["1.23", {}, true, "1.23"],
+            ["-1.23", {}, true, "-1.23"],
+            ["+1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "f"], true, "+1.23"],
+            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "f"], true, "+1.23"],
+            ["-1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "f"], true, "-1.23"],
+            ["+1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "g"], true, "1.23"],
+            ["1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "g"], true, "1.23"],
+            ["-1.23", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "g"], true, "-1.23"],
+            ["+", {}, false, "+"],
+            ["-", {}, false, "-"],
+            ["00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12.000"],
+            ["00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontAllowTrailingZeros */ "c"]), false, "12.000"],
+            ["00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "u"]), true, "12"],
+            ["00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "u"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveTrailingDecimalPoint */ "d"]), true, "12."],
+            ["+00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "+12.000"],
+            ["+00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "u"]), true, "+12"],
+            ["+00012.000", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeTrailingZerosFromNormalizedForm */ "u"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveTrailingDecimalPoint */ "d"]), true, "+12."],
+        ].forEach(a => {
+            var studentsResponse = a[0];
+            var constraints = a[1];
+            var isAccepted = a[2];
+            var normalisedStudentsResponse = a[3];
+
+            var request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
+
+            request.studentsResponse = studentsResponse;
+            request.expectedResponseType = "decimal";
+            request.constraints = constraints;
+
+            var response = validator.validate(request);
+
+            describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
+
+                it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
+                });
+
+                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function () {
+                    assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
+                });
+
+            });
+        });
+    });
+});
+
+/***/ }),
+/* 56 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
+/* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
+/* harmony import */ var _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
+/* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
 
 
 
@@ -12031,80 +12142,80 @@ describe("Integers", function () {
         [
             ["123", {}, true, "123"],
             ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "123"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "123"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "123"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "123"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "123"],
             [" 123 ", {}, true, "123"],
             ["   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "123"],
-            [" 123 ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "123"],
-            ["   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "123"],
+            [" 123 ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "123"],
+            ["   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "123"],
             ["00123", {}, false, "00123"],
             ["00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "00123"],
             ["+123", {}, true, "+123"],
-            ["+123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], false, "+123"],
-            ["+123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "+123"],
+            ["+123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], false, "+123"],
+            ["+123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "+123"],
             [" + 123 ", {}, true, "+123"],
-            ["   +   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], false, "+123"],
-            ["   +   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "+123"],
+            ["   +   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], false, "+123"],
+            ["   +   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "+123"],
             ["-123", {}, true, "-123"],
-            ["-123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "-123"],
-            ["-123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "-123"],
+            ["-123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "-123"],
+            ["-123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "-123"],
             [" - 123 ", {}, true, "-123"],
-            ["   -   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "-123"],
-            ["   -   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "-123"],
+            ["   -   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "-123"],
+            ["   -   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "-123"],
             ["+00123", {}, false, "+00123"],
             ["+00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "+00123"],
-            ["+00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "+00123"],
-            ["+00123", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"]), true, "+00123"],
+            ["+00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "+00123"],
+            ["+00123", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"]), true, "+00123"],
             ["-00123", {}, false, "-00123"],
             ["-00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "-00123"],
-            ["-00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "-00123"],
-            ["-00123", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"]), true, "-00123"],
+            ["-00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "-00123"],
+            ["-00123", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"]), true, "-00123"],
             ["0", {}, true, "0"],
             [" 0 ", {}, true, "0"],
             ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0"],
-            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "0"],
-            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "0"],
+            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "0"],
+            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "0"],
             ["+0", {}, true, "0"],
             ["   +   0   ", {}, true, "0"],
-            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], false, "0"],
-            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "0"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "123"],
-            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "12300"],
-            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "12345"],
-            ["120", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "120"],
-            ["100", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "100"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "h"], false, "123"],
-            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "h"], true, "12345"],
-            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], false, "12"],
-            ["012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"]), false, "012"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "123"],
-            ["120", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "120"],
-            ["100", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "100"],
-            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "n"], true, "12345"],
-            ["1000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "1000"],
-            ["123000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "123000"],
-            ["1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], false, "1234"],
-            ["1234567", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "n"], false, "1234567"],
-            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], true, "12300"],
-            ["12000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], true, "12000"],
-            ["10000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], true, "10000"],
-            ["12340", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], false, "12340"],
-            ["1230", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "k"], false, "1230"],
-            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "k"], true, "12300"],
-            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "k"], true, "12345"],
-            ["123456", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "k"], false, "123456"],
-            ["012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "12"],
-            ["0012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "12"],
-            ["00012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "12"],
-            ["-012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "-12"],
-            ["-0012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "-12"],
-            ["-00012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "q"]), true, "-12"],
-            ["+12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "d"], true, "+12"],
-            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "d"], true, "+12"],
-            ["-12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "d"], true, "-12"],
-            ["+12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "e"], true, "12"],
-            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "e"], true, "12"],
-            ["-12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "e"], true, "-12"],
+            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], false, "0"],
+            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "0"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "123"],
+            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "12300"],
+            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "12345"],
+            ["120", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "120"],
+            ["100", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "100"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "j"], false, "123"],
+            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "j"], true, "12345"],
+            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], false, "12"],
+            ["012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"]), false, "012"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "123"],
+            ["120", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "120"],
+            ["100", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "100"],
+            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "p"], true, "12345"],
+            ["1000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "1000"],
+            ["123000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "123000"],
+            ["1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], false, "1234"],
+            ["1234567", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "p"], false, "1234567"],
+            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], true, "12300"],
+            ["12000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], true, "12000"],
+            ["10000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], true, "10000"],
+            ["12340", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], false, "12340"],
+            ["1230", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "m"], false, "1230"],
+            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "m"], true, "12300"],
+            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "m"], true, "12345"],
+            ["123456", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "m"], false, "123456"],
+            ["012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12"],
+            ["0012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12"],
+            ["00012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "12"],
+            ["-012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "-12"],
+            ["-0012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "-12"],
+            ["-00012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* removeLeadingZerosFromNormalizedForm */ "t"]), true, "-12"],
+            ["+12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "f"], true, "+12"],
+            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "f"], true, "+12"],
+            ["-12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeExplicit */ "f"], true, "-12"],
+            ["+12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "g"], true, "12"],
+            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "g"], true, "12"],
+            ["-12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* makeImplicit */ "g"], true, "-12"],
             ["+12", {}, true, "+12"],
             ["12", {}, true, "12"],
             ["-12", {}, true, "-12"],
@@ -12150,17 +12261,17 @@ describe("Integers", function () {
 });
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
+/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
-/* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(9);
+/* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
 
 
 
@@ -12177,68 +12288,68 @@ describe("Non-negative Integers", function () {
         [
             ["123", {}, true, "123"],
             ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "123"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "123"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "123"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "123"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "123"],
             [" 123 ", {}, true, "123"],
             ["   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "123"],
-            [" 123 ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "123"],
-            ["   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "123"],
+            [" 123 ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "123"],
+            ["   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "123"],
             ["00123", {}, false, "00123"],
             ["00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "00123"],
             ["+123", {}, true, "+123"],
-            ["+123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], false, "+123"],
-            ["+123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "+123"],
+            ["+123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], false, "+123"],
+            ["+123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "+123"],
             [" + 123 ", {}, true, "+123"],
-            ["   +   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], false, "+123"],
-            ["   +   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "+123"],
+            ["   +   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], false, "+123"],
+            ["   +   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "+123"],
             ["-123", {}, false, "-123"],
-            ["-123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], false, "-123"],
-            ["-123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "-123"],
+            ["-123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], false, "-123"],
+            ["-123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "-123"],
             [" - 123 ", {}, false, "-123"],
-            ["   -   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], false, "-123"],
-            ["   -   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "-123"],
+            ["   -   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], false, "-123"],
+            ["   -   123   ", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "-123"],
             ["+00123", {}, false, "+00123"],
             ["+00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "+00123"],
-            ["+00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "+00123"],
-            ["+00123", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"]), true, "+00123"],
+            ["+00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "+00123"],
+            ["+00123", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"]), true, "+00123"],
             ["-00123", {}, false, "-00123"],
             ["-00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], false, "-00123"],
-            ["-00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "-00123"],
-            ["-00123", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"]), false, "-00123"],
+            ["-00123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "-00123"],
+            ["-00123", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"]), false, "-00123"],
             ["0", {}, true, "0"],
             [" 0 ", {}, true, "0"],
             ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"], true, "0"],
-            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], true, "0"],
-            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], false, "0"],
+            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], true, "0"],
+            ["0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], false, "0"],
             ["+0", {}, true, "0"],
             ["   +   0   ", {}, true, "0"],
-            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "p"], false, "0"],
-            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "o"], true, "0"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "123"],
-            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "12300"],
-            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "12345"],
-            ["120", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "120"],
-            ["100", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], true, "100"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "h"], false, "123"],
-            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "h"], true, "12345"],
-            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], false, "12"],
-            ["012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "g"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"]), false, "012"],
-            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "123"],
-            ["120", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "120"],
-            ["100", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "100"],
-            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "n"], true, "12345"],
-            ["1000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "1000"],
-            ["123000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], true, "123000"],
-            ["1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "m"], false, "1234"],
-            ["1234567", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "n"], false, "1234567"],
-            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], true, "12300"],
-            ["12000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], true, "12000"],
-            ["10000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], true, "10000"],
-            ["12340", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "j"], false, "12340"],
-            ["1230", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "k"], false, "1230"],
-            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "k"], true, "12300"],
-            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "k"], true, "12345"],
-            ["123456", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "k"], false, "123456"],
+            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustNotHavePlus */ "r"], false, "0"],
+            ["+0", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHavePlus */ "q"], true, "0"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "123"],
+            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "12300"],
+            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "12345"],
+            ["120", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "120"],
+            ["100", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], true, "100"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "j"], false, "123"],
+            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast5SF */ "j"], true, "12345"],
+            ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], false, "12"],
+            ["012", merge(_test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveAtLeast3SF */ "i"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowLeadingZeros */ "a"]), false, "012"],
+            ["123", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "123"],
+            ["120", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "120"],
+            ["100", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "100"],
+            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "p"], true, "12345"],
+            ["1000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "1000"],
+            ["123000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], true, "123000"],
+            ["1234", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan3SF */ "o"], false, "1234"],
+            ["1234567", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveNoMoreThan6SF */ "p"], false, "1234567"],
+            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], true, "12300"],
+            ["12000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], true, "12000"],
+            ["10000", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], true, "10000"],
+            ["12340", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly3SF */ "l"], false, "12340"],
+            ["1230", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "m"], false, "1230"],
+            ["12300", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "m"], true, "12300"],
+            ["12345", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "m"], true, "12345"],
+            ["123456", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* mustHaveExactly5SF */ "m"], false, "123456"],
             ["+", {}, false, "+"],
             ["-", {}, false, "-"],
         ].forEach(a => {

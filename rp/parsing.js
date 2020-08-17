@@ -228,14 +228,14 @@ export class Parser {
         var t1 = "";
         var t2 = "";
 
-        if (this.settings.removeTrailingZerosFromSimplifiedForms && ntz > 0) {
+        if (this.settings.removeTrailingZerosFromSimplifiedForms === true && ntz > 0) {
             t2 = decimalPart.substr(0, decimalPart.length - ntz);
         }
         else {
             t2 = decimalPart;
         }
 
-        t2 = (t2 == "." && this.settings.removeTrailingDecimalPointFromSimplifiedForms) ? "" : t2;
+        t2 = (t2 === "." && this.settings.removeTrailingDecimalPointFromSimplifiedForms === true) ? "" : t2;
 
         if (integralPart == "" && (decimalPart == "" || decimalPart == ".")) {
             t1 = "";

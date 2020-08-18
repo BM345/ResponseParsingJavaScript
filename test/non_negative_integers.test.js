@@ -90,25 +90,27 @@ describe("Non-negative Integers", function () {
             request.expectedResponseType = "nonNegativeInteger";
             request.constraints = constraints;
 
-            var response = validator.validate(request);
-
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
+                    var response = validator.validate(request);
                     assert.equal(response.isAccepted, isAccepted);
                 });
 
-                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function () {
+                it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
+                    var response = validator.validate(request);
                     assert.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
-                var integer = response.expression;
-
                 it(`The expression should have the type "number".`, function () {
+                    var response = validator.validate(request);
+                    var integer = response.expression;
                     assert.equal(integer.type, "number");
                 });
 
                 it(`The expression should have the subtype "integer".`, function () {
+                    var response = validator.validate(request);
+                    var integer = response.expression;
                     assert.equal(integer.subtype, "integer");
                 });
 

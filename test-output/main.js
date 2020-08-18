@@ -1193,7 +1193,7 @@ class validation_Validator {
             this.parser.settings.removeLeadingZerosFromSimplifiedForms = true;
         }
 
-        if (request.constraints["removeTrailingZerosFromNormalizedForm"] === true && request.expectedResponseType != "currencyValue") {
+        if (request.constraints["removeTrailingZerosFromNormalizedForm"] === true && request.expectedResponseType !== "currencyValue") {
             this.parser.settings.removeTrailingZerosFromSimplifiedForms = true;
         }
 
@@ -1221,17 +1221,17 @@ class validation_Validator {
             request.constraints["sign"] = "canBeExplicitOrImplicit";
         }
 
-        if (request.expectedResponseType == "integer") {
+        if (request.expectedResponseType === "integer") {
             this.validateInteger(request, result, response);
         }
-        else if (request.expectedResponseType == "nonNegativeInteger") {
+        else if (request.expectedResponseType === "nonNegativeInteger") {
             this.validateNonNegativeInteger(request, result, response);
         }
-        else if (request.expectedResponseType == "decimal") {
+        else if (request.expectedResponseType === "decimal") {
             this.validateDecimal(request, result, response);
         }
-        else if (request.expectedResponseType == "currencyValue") {
-            if (result !== null && result.type == "number") {
+        else if (request.expectedResponseType === "currencyValue") {
+            if (result !== null && result.type === "number") {
                 result = this.parser.makeIntoCurrencyValue(result);
             }
             this.validateCurrencyValue(request, result, response);
@@ -8250,15 +8250,15 @@ describe("Currency Values", function () {
             request.expectedResponseType = "currencyValue";
             request.constraints = constraints;
 
-            var response = validator.validate(request);
-
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
+                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
                 });
 
-                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function () {
+                it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
+                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
@@ -12001,15 +12001,15 @@ describe("Decimals", function () {
             request.expectedResponseType = "decimal";
             request.constraints = constraints;
 
-            var response = validator.validate(request);
-
-            describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
+            describe(`Validating "${studentsResponse}" with constraints ${JSON.stringify(constraints)}`, function () {
 
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
+                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
                 });
 
-                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function () {
+                it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
+                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
@@ -12233,25 +12233,27 @@ describe("Integers", function () {
             request.expectedResponseType = "integer";
             request.constraints = constraints;
 
-            var response = validator.validate(request);
-
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
+                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
                 });
 
-                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function () {
+                it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
+                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
-                var integer = response.expression;
-
                 it(`The expression should have the type "number".`, function () {
+                    var response = validator.validate(request);
+                    var integer = response.expression;
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(integer.type, "number");
                 });
 
                 it(`The expression should have the subtype "integer".`, function () {
+                    var response = validator.validate(request);
+                    var integer = response.expression;
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(integer.subtype, "integer");
                 });
 
@@ -12364,25 +12366,27 @@ describe("Non-negative Integers", function () {
             request.expectedResponseType = "nonNegativeInteger";
             request.constraints = constraints;
 
-            var response = validator.validate(request);
-
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
+                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
                 });
 
-                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function () {
+                it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
+                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
-                var integer = response.expression;
-
                 it(`The expression should have the type "number".`, function () {
+                    var response = validator.validate(request);
+                    var integer = response.expression;
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(integer.type, "number");
                 });
 
                 it(`The expression should have the subtype "integer".`, function () {
+                    var response = validator.validate(request);
+                    var integer = response.expression;
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(integer.subtype, "integer");
                 });
 

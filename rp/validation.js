@@ -43,7 +43,7 @@ export class Validator {
             this.parser.settings.removeLeadingZerosFromSimplifiedForms = true;
         }
 
-        if (request.constraints["removeTrailingZerosFromNormalizedForm"] === true && request.expectedResponseType != "currencyValue") {
+        if (request.constraints["removeTrailingZerosFromNormalizedForm"] === true && request.expectedResponseType !== "currencyValue") {
             this.parser.settings.removeTrailingZerosFromSimplifiedForms = true;
         }
 
@@ -71,17 +71,17 @@ export class Validator {
             request.constraints["sign"] = "canBeExplicitOrImplicit";
         }
 
-        if (request.expectedResponseType == "integer") {
+        if (request.expectedResponseType === "integer") {
             this.validateInteger(request, result, response);
         }
-        else if (request.expectedResponseType == "nonNegativeInteger") {
+        else if (request.expectedResponseType === "nonNegativeInteger") {
             this.validateNonNegativeInteger(request, result, response);
         }
-        else if (request.expectedResponseType == "decimal") {
+        else if (request.expectedResponseType === "decimal") {
             this.validateDecimal(request, result, response);
         }
-        else if (request.expectedResponseType == "currencyValue") {
-            if (result !== null && result.type == "number") {
+        else if (request.expectedResponseType === "currencyValue") {
+            if (result !== null && result.type === "number") {
                 result = this.parser.makeIntoCurrencyValue(result);
             }
             this.validateCurrencyValue(request, result, response);

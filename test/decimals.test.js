@@ -240,15 +240,15 @@ describe("Decimals", function () {
             request.expectedResponseType = "decimal";
             request.constraints = constraints;
 
-            var response = validator.validate(request);
-
-            describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
+            describe(`Validating "${studentsResponse}" with constraints ${JSON.stringify(constraints)}`, function () {
 
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
+                    var response = validator.validate(request);
                     assert.equal(response.isAccepted, isAccepted);
                 });
 
-                it(`The normalised response should be "${normalisedStudentsResponse}". It is "${response.normalisedStudentsResponse}".`, function () {
+                it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
+                    var response = validator.validate(request);
                     assert.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 

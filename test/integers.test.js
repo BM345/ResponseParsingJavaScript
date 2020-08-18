@@ -6,9 +6,6 @@ import * as general from "../test/general.js";
 
 var merge = general.merge;
 
-var parser = new parsing.Parser();
-var validator = new validation.Validator();
-
 describe("Integers", function () {
     describe("Parsing integers", function () {
         [
@@ -46,9 +43,15 @@ describe("Integers", function () {
             var isZero = a[10];
             var integralPartIsZero = a[11];
 
-            var parseResult = parser.getParseResult(studentsResponse);
+            var parseResult;
 
             describe(`Parsing "${studentsResponse}"`, function () {
+
+                beforeEach(function () {
+                    var parser = new parsing.Parser();
+
+                    parseResult = parser.getParseResult(studentsResponse);
+                });
 
                 it(`The parser should identify it as a number.`, function () {
                     assert.equal(parseResult.type, "number");
@@ -195,33 +198,39 @@ describe("Integers", function () {
             var isAccepted = a[2];
             var normalisedStudentsResponse = a[3];
 
-            var request = new validation.ValidationRequest();
-
-            request.studentsResponse = studentsResponse;
-            request.expectedResponseType = "integer";
-            request.constraints = constraints;
+            var request;
+            var response;
+            var integer;
 
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
+                beforeEach(function () {
+                    request = new validation.ValidationRequest();
+
+                    request.studentsResponse = studentsResponse;
+                    request.expectedResponseType = "integer";
+                    request.constraints = constraints;
+
+                    var validator = new validation.Validator();
+
+                    response = validator.validate(request);
+
+                    integer = response.expression;
+                });
+
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
-                    var response = validator.validate(request);
                     assert.equal(response.isAccepted, isAccepted);
                 });
 
                 it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
-                    var response = validator.validate(request);
                     assert.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
                 it(`The expression should have the type "number".`, function () {
-                    var response = validator.validate(request);
-                    var integer = response.expression;
                     assert.equal(integer.type, "number");
                 });
 
                 it(`The expression should have the subtype "integer".`, function () {
-                    var response = validator.validate(request);
-                    var integer = response.expression;
                     assert.equal(integer.subtype, "integer");
                 });
 

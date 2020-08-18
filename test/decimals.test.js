@@ -6,9 +6,6 @@ import * as general from "../test/general.js";
 
 var merge = general.merge;
 
-var parser = new parsing.Parser();
-var validator = new validation.Validator();
-
 describe("Decimals", function () {
     describe("Parsing decimals", function () {
         [
@@ -56,9 +53,15 @@ describe("Decimals", function () {
             var isZero = a[10];
             var integralPartIsZero = a[11];
 
-            var parseResult = parser.getParseResult(studentsResponse);
+            var parseResult;
 
             describe(`Parsing "${studentsResponse}"`, function () {
+
+                beforeEach(function () {
+                    var parser = new parsing.Parser();
+
+                    parseResult = parser.getParseResult(studentsResponse);
+                });
 
                 it(`The parser should identify it as a number.`, function () {
                     assert.equal(parseResult.type, "number");
@@ -234,21 +237,28 @@ describe("Decimals", function () {
             var isAccepted = a[2];
             var normalisedStudentsResponse = a[3];
 
-            var request = new validation.ValidationRequest();
-
-            request.studentsResponse = studentsResponse;
-            request.expectedResponseType = "decimal";
-            request.constraints = constraints;
+            var request;
+            var response;
 
             describe(`Validating "${studentsResponse}" with constraints ${JSON.stringify(constraints)}`, function () {
 
+                beforeEach(function () {
+                    request = new validation.ValidationRequest();
+
+                    request.studentsResponse = studentsResponse;
+                    request.expectedResponseType = "decimal";
+                    request.constraints = constraints;
+
+                    var validator = new validation.Validator();
+
+                    response = validator.validate(request);
+                });
+
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
-                    var response = validator.validate(request);
                     assert.equal(response.isAccepted, isAccepted);
                 });
 
                 it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
-                    var response = validator.validate(request);
                     assert.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 

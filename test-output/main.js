@@ -728,10 +728,36 @@ var objectKeys = Object.keys || function (obj) {
   return keys;
 };
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || new Function("return this")();
+} catch (e) {
+	// This works if the window reference is available
+	if (typeof window === "object") g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1049,32 +1075,6 @@ class Parser {
 
 
 /***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || new Function("return this")();
-} catch (e) {
-	// This works if the window reference is available
-	if (typeof window === "object") g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1090,7 +1090,7 @@ __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding *
 var nodes = __webpack_require__(11);
 
 // EXTERNAL MODULE: ./rp/parsing.js
-var parsing = __webpack_require__(2);
+var parsing = __webpack_require__(3);
 
 // CONCATENATED MODULE: ./rp/messages.js
 
@@ -3644,7 +3644,7 @@ function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
 /* 9 */
@@ -5009,7 +5009,7 @@ http.METHODS = [
 	'UNLOCK',
 	'UNSUBSCRIBE'
 ]
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
 /* 18 */
@@ -5089,7 +5089,7 @@ function isFunction (value) {
 
 xhr = null // Help gc
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
 /* 19 */
@@ -5320,7 +5320,7 @@ IncomingMessage.prototype._onXHRProgress = function () {
 	}
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5), __webpack_require__(8).Buffer, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5), __webpack_require__(8).Buffer, __webpack_require__(2)))
 
 /***/ }),
 /* 20 */
@@ -6359,7 +6359,7 @@ function indexOf(xs, x) {
   }
   return -1;
 }
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(5)))
 
 /***/ }),
 /* 22 */
@@ -7623,7 +7623,7 @@ Writable.prototype._destroy = function (err, cb) {
   this.end();
   cb(err);
 };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5), __webpack_require__(47).setImmediate, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(5), __webpack_require__(47).setImmediate, __webpack_require__(2)))
 
 /***/ }),
 /* 26 */
@@ -8165,7 +8165,7 @@ module.exports = __webpack_require__(57);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
 /* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
@@ -8177,11 +8177,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var merge = _test_general_js__WEBPACK_IMPORTED_MODULE_4__[/* merge */ "a"];
 
-var parser = new _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__[/* Parser */ "a"]();
-var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
-
 describe("Currency Values", function () {
-      describe("Validating currency values", function () {
+    describe("Validating currency values", function () {
         [
             ["12", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], true, "12"],
             ["12.", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dollars */ "b"], true, "12"],
@@ -8244,21 +8241,28 @@ describe("Currency Values", function () {
             var isAccepted = a[2];
             var normalisedStudentsResponse = a[3];
 
-            var request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
-
-            request.studentsResponse = studentsResponse;
-            request.expectedResponseType = "currencyValue";
-            request.constraints = constraints;
+            var request;
+            var response;
 
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
+                beforeEach(function () {
+                    request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
+
+                    request.studentsResponse = studentsResponse;
+                    request.expectedResponseType = "currencyValue";
+                    request.constraints = constraints;
+
+                    var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
+
+                    response = validator.validate(request);
+                });
+
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
-                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
                 });
 
                 it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
-                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
@@ -10514,7 +10518,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 }(this));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(38)(module), __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(38)(module), __webpack_require__(2)))
 
 /***/ }),
 /* 38 */
@@ -11093,7 +11097,7 @@ var unsafeHeaders = [
 	'via'
 ]
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8).Buffer, __webpack_require__(3), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(8).Buffer, __webpack_require__(2), __webpack_require__(5)))
 
 /***/ }),
 /* 44 */
@@ -11260,7 +11264,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
                          (typeof global !== "undefined" && global.clearImmediate) ||
                          (this && this.clearImmediate);
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
 /* 48 */
@@ -11453,7 +11457,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3), __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2), __webpack_require__(5)))
 
 /***/ }),
 /* 49 */
@@ -11527,7 +11531,7 @@ function config (name) {
   return String(val).toLowerCase() === 'true';
 }
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
 
 /***/ }),
 /* 50 */
@@ -11755,7 +11759,7 @@ function validateParams (params) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
 /* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
@@ -11766,9 +11770,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var merge = _test_general_js__WEBPACK_IMPORTED_MODULE_4__[/* merge */ "a"];
-
-var parser = new _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__[/* Parser */ "a"]();
-var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
 
 describe("Decimals", function () {
     describe("Parsing decimals", function () {
@@ -11817,9 +11818,15 @@ describe("Decimals", function () {
             var isZero = a[10];
             var integralPartIsZero = a[11];
 
-            var parseResult = parser.getParseResult(studentsResponse);
+            var parseResult;
 
             describe(`Parsing "${studentsResponse}"`, function () {
+
+                beforeEach(function () {
+                    var parser = new _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__[/* Parser */ "a"]();
+
+                    parseResult = parser.getParseResult(studentsResponse);
+                });
 
                 it(`The parser should identify it as a number.`, function () {
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.type, "number");
@@ -11995,21 +12002,28 @@ describe("Decimals", function () {
             var isAccepted = a[2];
             var normalisedStudentsResponse = a[3];
 
-            var request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
-
-            request.studentsResponse = studentsResponse;
-            request.expectedResponseType = "decimal";
-            request.constraints = constraints;
+            var request;
+            var response;
 
             describe(`Validating "${studentsResponse}" with constraints ${JSON.stringify(constraints)}`, function () {
 
+                beforeEach(function () {
+                    request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
+
+                    request.studentsResponse = studentsResponse;
+                    request.expectedResponseType = "decimal";
+                    request.constraints = constraints;
+
+                    var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
+
+                    response = validator.validate(request);
+                });
+
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
-                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
                 });
 
                 it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
-                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
@@ -12026,7 +12040,7 @@ describe("Decimals", function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
 /* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
@@ -12037,9 +12051,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var merge = _test_general_js__WEBPACK_IMPORTED_MODULE_4__[/* merge */ "a"];
-
-var parser = new _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__[/* Parser */ "a"]();
-var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
 
 describe("Integers", function () {
     describe("Parsing integers", function () {
@@ -12078,9 +12089,15 @@ describe("Integers", function () {
             var isZero = a[10];
             var integralPartIsZero = a[11];
 
-            var parseResult = parser.getParseResult(studentsResponse);
+            var parseResult;
 
             describe(`Parsing "${studentsResponse}"`, function () {
+
+                beforeEach(function () {
+                    var parser = new _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__[/* Parser */ "a"]();
+
+                    parseResult = parser.getParseResult(studentsResponse);
+                });
 
                 it(`The parser should identify it as a number.`, function () {
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(parseResult.type, "number");
@@ -12227,33 +12244,39 @@ describe("Integers", function () {
             var isAccepted = a[2];
             var normalisedStudentsResponse = a[3];
 
-            var request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
-
-            request.studentsResponse = studentsResponse;
-            request.expectedResponseType = "integer";
-            request.constraints = constraints;
+            var request;
+            var response;
+            var integer;
 
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
+                beforeEach(function () {
+                    request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
+
+                    request.studentsResponse = studentsResponse;
+                    request.expectedResponseType = "integer";
+                    request.constraints = constraints;
+
+                    var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
+
+                    response = validator.validate(request);
+
+                    integer = response.expression;
+                });
+
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
-                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
                 });
 
                 it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
-                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
                 it(`The expression should have the type "number".`, function () {
-                    var response = validator.validate(request);
-                    var integer = response.expression;
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(integer.type, "number");
                 });
 
                 it(`The expression should have the subtype "integer".`, function () {
-                    var response = validator.validate(request);
-                    var integer = response.expression;
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(integer.subtype, "integer");
                 });
 
@@ -12270,7 +12293,7 @@ describe("Integers", function () {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var assert__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(assert__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
+/* harmony import */ var _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(3);
 /* harmony import */ var _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4);
 /* harmony import */ var _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(0);
 /* harmony import */ var _test_general_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(6);
@@ -12281,9 +12304,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var merge = _test_general_js__WEBPACK_IMPORTED_MODULE_4__[/* merge */ "a"];
-
-var parser = new _rp_parsing_js__WEBPACK_IMPORTED_MODULE_1__[/* Parser */ "a"]();
-var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
 
 describe("Non-negative Integers", function () {
     describe("Validating non-negative integers", function () {
@@ -12360,33 +12380,39 @@ describe("Non-negative Integers", function () {
             var isAccepted = a[2];
             var normalisedStudentsResponse = a[3];
 
-            var request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
-
-            request.studentsResponse = studentsResponse;
-            request.expectedResponseType = "nonNegativeInteger";
-            request.constraints = constraints;
+            var request;
+            var response;
+            var integer;
 
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
+                beforeEach(function () {
+                    request = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* ValidationRequest */ "a"]();
+
+                    request.studentsResponse = studentsResponse;
+                    request.expectedResponseType = "nonNegativeInteger";
+                    request.constraints = constraints;
+
+                    var validator = new _rp_validation_js__WEBPACK_IMPORTED_MODULE_2__[/* Validator */ "b"]();
+
+                    response = validator.validate(request);
+
+                    integer = response.expression;
+                });
+
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
-                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
                 });
 
                 it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
-                    var response = validator.validate(request);
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 
                 it(`The expression should have the type "number".`, function () {
-                    var response = validator.validate(request);
-                    var integer = response.expression;
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(integer.type, "number");
                 });
 
                 it(`The expression should have the subtype "integer".`, function () {
-                    var response = validator.validate(request);
-                    var integer = response.expression;
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(integer.subtype, "integer");
                 });
 

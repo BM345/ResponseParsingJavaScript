@@ -6,11 +6,8 @@ import * as general from "../test/general.js";
 
 var merge = general.merge;
 
-var parser = new parsing.Parser();
-var validator = new validation.Validator();
-
 describe("Currency Values", function () {
-      describe("Validating currency values", function () {
+    describe("Validating currency values", function () {
         [
             ["12", constraints.dollars, true, "12"],
             ["12.", constraints.dollars, true, "12"],
@@ -73,21 +70,28 @@ describe("Currency Values", function () {
             var isAccepted = a[2];
             var normalisedStudentsResponse = a[3];
 
-            var request = new validation.ValidationRequest();
-
-            request.studentsResponse = studentsResponse;
-            request.expectedResponseType = "currencyValue";
-            request.constraints = constraints;
+            var request;
+            var response;
 
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
 
+                beforeEach(function () {
+                    request = new validation.ValidationRequest();
+
+                    request.studentsResponse = studentsResponse;
+                    request.expectedResponseType = "currencyValue";
+                    request.constraints = constraints;
+
+                    var validator = new validation.Validator();
+
+                    response = validator.validate(request);
+                });
+
                 it(`The validator should${isAccepted ? "" : " not"} accept it.`, function () {
-                    var response = validator.validate(request);
                     assert.equal(response.isAccepted, isAccepted);
                 });
 
                 it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
-                    var response = validator.validate(request);
                     assert.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
 

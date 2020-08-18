@@ -27,11 +27,11 @@ export class ParserSettings {
     }
 }
 
-function cut(text, startIndex, length = 1) {
+export function cut(text, startIndex, length = 1) {
     return text.substr(startIndex, length);
 }
 
-function isOneOf(character, characters) {
+export function isOneOf(character, characters) {
     return characters.indexOf(character) >= 0;
 }
 
@@ -196,7 +196,7 @@ export class Parser {
             }
         }
 
-        var allZero = (nsf == 0 && t.length > 0) ? true : false;
+        var allZero = (nsf === 0 && t.length > 0) ? true : false;
 
         var minimumNSF = 0;
         var maximumNSF = 0;
@@ -228,14 +228,14 @@ export class Parser {
         var t1 = "";
         var t2 = "";
 
-        if (this.settings.removeTrailingZerosFromSimplifiedForms && ntz > 0) {
+        if (this.settings.removeTrailingZerosFromSimplifiedForms === true && ntz > 0) {
             t2 = decimalPart.substr(0, decimalPart.length - ntz);
         }
         else {
             t2 = decimalPart;
         }
 
-        t2 = (t2 == "." && this.settings.removeTrailingDecimalPointFromSimplifiedForms) ? "" : t2;
+        t2 = (t2 === "." && this.settings.removeTrailingDecimalPointFromSimplifiedForms === true) ? "" : t2;
 
         if (integralPart == "" && (decimalPart == "" || decimalPart == ".")) {
             t1 = "";
@@ -254,9 +254,9 @@ export class Parser {
                 if (this.settings.addLeadingZeroToDecimalsForSimplifiedForms) {
                     t1 = (t1 == "") ? "0" : t1;
                 }
-                else {
-                    t1 = integralPart;
-                }
+            }
+            else {
+                t1 = integralPart;
             }
         }
 
@@ -274,16 +274,16 @@ export class Parser {
 
             var s = ts;
 
-            if (sign == "positive") {
-                if (this.settings.normaliseSigns == "makeExplicit") {
+            if (sign === "positive") {
+                if (this.settings.normaliseSigns === "makeExplicit") {
                     s = "+";
                 }
-                else if (this.settings.normaliseSigns == "makeImplicit") {
+                else if (this.settings.normaliseSigns === "makeImplicit") {
                     s = "";
                 }
             }
 
-            node.value = (allZero) ? t1 + t2 : s + t1 + t2;
+            node.value = (allZero === true) ? t1 + t2 : s + t1 + t2;
 
             node.integralPart = integralPart;
             node.decimalPart = decimalPart;

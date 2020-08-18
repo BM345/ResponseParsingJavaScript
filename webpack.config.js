@@ -20,5 +20,10 @@ module.exports = {
     },
     optimization: {
         minimize: false,
-    }
+    },
+    node: {
+        fs: "empty",
+        child_process: "empty",
+    },
+    mode: "production"
 }

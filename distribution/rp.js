@@ -543,14 +543,11 @@ class parsing_Parser {
 
 // CONCATENATED MODULE: ./rp/messages.js
 
-// var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-
 class messages_ValueError extends Error {
     constructor(...params) {
         super(...params);
     }
 }
-
 
 class Messages {
     constructor(messagesFile = "") {

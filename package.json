@@ -20,6 +20,7 @@
   "devDependencies": {
     "mocha": "^8.1.1",
     "mocha-loader": "^5.1.2",
+    "mock-xmlhttprequest": "^6.2.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "xmlhttprequest": "^1.8.0"

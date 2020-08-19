@@ -73,7 +73,7 @@ app.controller("MainController", ["$scope", "$http", function MainController($sc
             console.log(validationRequest);
         }
 
-        var validator = new rp.Validator();
+        var validator = new rp.Validator("messages.en-gb.xml");
 
         var responseData = validator.validate(validationRequest);
 

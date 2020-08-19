@@ -9,12 +9,14 @@ export class ValueError extends Error {
 
 
 export class Messages {
-    constructor(messagesFile = "../rp/messages.en-gb.xml") {
+    constructor(messagesFile = "") {
 
         this.messagesFile = messagesFile;
         this.messages = [];
 
-        return;
+        if (messagesFile === "") {
+            return;
+        }
 
         var httpRequest = new XMLHttpRequest();
 

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html ng-app="ResponseParsing">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i&amp;subset=greek,greek-ext,latin-ext" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-sanitize.min.js"></script>
+
+    <script type="text/javascript" src="rp.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+
+</head>
+
+<body ng-controller="MainController">
+
+    <div class="centrecolumn">
+        <div class="inputrow">
+            <input class="studentsresponse" type="text" placeholder="Type your answer here." ng-model="studentsResponse" />
+
+        </div>
+        <div class="options">
+            <h2>Validation Parameters</h2>
+            <div class="optionrow">
+                <div class="option">
+                    <label>Expected response type:</label>
+                    <select ng-model="expectedResponseType">
+                        <option value="integer">Integer</option>
+                        <option value="nonNegativeInteger">Non-Negative Integer</option>
+                        <option value="decimal">Decimal</option>
+                        <option value="currencyValue">Currency Value</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <label>Allow leading zeros:</label>
+                    <input type="checkbox" ng-model="allowLeadingZeros" />
+                </div>
+                <div class="option" ng-show="expectedResponseType == 'decimal'">
+                    <label>Allow trailing zeros:</label>
+                    <input type="checkbox" ng-model="allowTrailingZeros" />
+                </div>
+                <div class="option">
+                    <label>Sign:</label>
+                    <select ng-model="sign">
+                        <option value="mustBeExplicit">Must be explicit</option>
+                        <option value="mustBeImplicit">Must be implicit</option>
+                        <option value="canBeExplicitOrImplicit">Can be explicit or implicit</option>
+                    </select>
+                </div>
+
+                <div class="optiongroup" ng-show="expectedResponseType == 'integer' || expectedResponseType == 'nonNegativeInteger' || expectedResponseType == 'decimal'">
+                    <h3>Significant Figures</h3>
+                    <div class="option">
+                        <label for="sffrom">Range: between</label>
+                        <input type="text" class="singlenumber" id="sffrom" ng-model="sf1" />
+                        <label for="sfto">and</label>
+                        <input type="text" class="singlenumber" id="sfto" ng-model="sf2" />
+                    </div>
+                    <div class="option">
+                        <label for="sfis">Exact value:</label>
+                        <input type="text" class="singlenumber" id="sfis" ng-model="nsf" />
+                    </div>
+                </div>
+
+                <div class="optiongroup" ng-show="expectedResponseType == 'decimal'">
+                    <h3>Decimal Places</h3>
+                    <div class="option">
+                        <label for="dpfrom">Range: between</label>
+                        <input type="text" class="singlenumber" id="dpfrom" ng-model="dp1" />
+                        <label for="dpto">and</label>
+                        <input type="text" class="singlenumber" id="dpto" ng-model="dp2" />
+                    </div>
+                    <div class="option">
+                        <label for="dpis">Exact value:</label>
+                        <input type="text" class="singlenumber" id="dpis" ng-model="ndp" />
+                    </div>
+                </div>
+
+                <div class="optiongroup" ng-show="expectedResponseType == 'currencyValue'">
+                    <h3>Currency</h3>
+                    <div class="option">
+                        <select ng-model="currency">
+                            <option value="USD">US Dollars</option>
+                            <option value="GBP">UK Pounds</option>
+                            <option value="EGP">Egyptian Pounds</option>
+                            <option value="SAR">Saudi Riyal</option>
+                        </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="options">
+            <h2>Normalization Parameters</h2>
+            <div class="option">
+                <label>Remove leading zeros from normalized form:</label>
+                <input type="checkbox" ng-model="removeLeadingZerosFromNormalizedForm" />
+            </div>
+            <div class="option" ng-show="expectedResponseType == 'decimal' || expectedResponseType == 'currencyValue'">
+                <label>Remove trailing zeros from normalized form:</label>
+                <input type="checkbox" ng-model="removeTrailingZerosFromNormalizedForm" />
+            </div>
+            <div class="option" ng-show="expectedResponseType == 'decimal' || expectedResponseType == 'currencyValue'">
+                <label>Remove trailing decimal point from normalized form:</label>
+                <input type="checkbox" ng-model="removeTrailingDecimalPointFromNormalizedForm" />
+            </div>
+            <div class="option">
+                <label>Sign:</label>
+                <select ng-model="normaliseSign">
+                    <option value="notSet">Do nothing</option>
+                    <option value="makeExplicit">Make explicit</option>
+                    <option value="makeImplicit">Make implicit</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="inputrow">
+
+            <button class="submitbutton" ng-click="submit()" ng-show="developerMode == false">Submit</button>
+        </div>
+
+        <div class="acceptorreject" style="background-color: hsl({{isAcceptedColour}}, 60%, 40%); color: white;" ng-show="acceptOrRejectIsVisible">{{isAccepted}}</div>
+        <p ng-show="acceptOrRejectIsVisible">{{messageText}}</p>
+        <div style="text-align: center;"><code ng-show="acceptOrRejectIsVisible">ASCIIMath: {{normalisedStudentsResponse}}</code></div>
+    </div>
+
+</body>
+
+</html>

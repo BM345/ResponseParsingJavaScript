@@ -25,7 +25,7 @@ export class ValidationResponse {
 
 
 export class Validator {
-    constructor(messagesFile = "../rp/messages.en-gb.xml") {
+    constructor(messagesFile = "") {
         this.parser = new parsing.Parser();
         this.messages = new messages.Messages(messagesFile);
 

@@ -5,7 +5,7 @@
   "main": "validation.js",
   "scripts": {
     "test": "TESTBUILD=true webpack && mocha test-output/main.js",
-    "build": "npx webpack --config webpack.config.js"
+    "build": "npx webpack --config webpack.config.js && npx webpack --config webpack-browser-based-testing.config.js"
   },
   "repository": {
     "type": "git",

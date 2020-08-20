@@ -4,8 +4,7 @@
   "description": "A JavaScript port of the ResponseParsingPython library",
   "main": "validation.js",
   "scripts": {
-    "test": "TESTBUILD=true webpack",
-    "build": "npx webpack --config webpack.config.js && npx webpack --config webpack-browser-based-testing.config.js"
+    "build": "npx webpack --config webpack.config.js && npx webpack --config webpack-unit-tests.config.js && npx webpack --config webpack-browser-based-testing.config.js"
   },
   "repository": {
     "type": "git",

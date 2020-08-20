@@ -1086,7 +1086,7 @@ class Messages {
 
         var httpRequest = new XMLHttpRequest();
 
-              httpRequest.open("GET", this.messagesFile, false);
+        httpRequest.open("GET", this.messagesFile, false);
         httpRequest.send();
 
         var xmlDocument = httpRequest.responseXML;

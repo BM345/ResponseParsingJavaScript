@@ -1,16 +1,14 @@
 let path = require("path");
+let glob = require("glob");
 
-let entry = {
-    "rp": "./rp/validation.js"
-}
-let outputFolder = "browser_based_testing";
+let entry = glob.sync(__dirname + "/test/*.test.js");
+let outputFolder = "test-output";
 
 module.exports = {
     entry: entry,
     output: {
         filename: "[name].js",
         path: path.resolve(__dirname, outputFolder),
-        library: "rp"
     },
     optimization: {
         minimize: false,

@@ -9,13 +9,20 @@ This port of the code maintains parity with the Python version - i.e., features 
 Run
 
 ```bash
-npx webpack --config webpack.config.js
+npm run-script build
 ```
 
+This will build the validation code, as well as all of the unit tests, and output them to the relevant folders.
+
 ## Test Process
+
+The unit tests are run using Mocha in the browser.
 
 Run
 
 ```bash
-npm test
+cd test-output
+python start_app.py
 ```
+
+Then go to localhost:8080/index.html to run the tests and see the output.

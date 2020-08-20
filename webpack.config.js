@@ -8,7 +8,7 @@ let entry = {
 let outputFolder = "distribution";
 
 if (process.env.TESTBUILD) {
-    entry = glob.sync(__dirname + "/test/integers.test.js");
+    entry = glob.sync(__dirname + "/test/*.test.js");
     outputFolder = "test-output";
 }
 
@@ -21,10 +21,5 @@ module.exports = {
     optimization: {
         minimize: false,
     },
-    node: {
-      //  fs: "empty",
-        child_process: "empty",
-    },
-    mode: "production",
-    target: "node"
+    target: "web"
 }

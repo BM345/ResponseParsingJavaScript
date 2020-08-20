@@ -73,7 +73,7 @@ describe("Currency Values", function () {
             var request;
             var response;
 
-            describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
+            describe(`Validating "${studentsResponse}" with constraints ${JSON.stringify(constraints)}`, function () {
 
                 beforeEach(function () {
                     request = new validation.ValidationRequest();

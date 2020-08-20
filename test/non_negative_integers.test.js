@@ -85,7 +85,7 @@ describe("Non-negative Integers", function () {
             var response;
             var integer;
 
-            describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
+            describe(`Validating "${studentsResponse}" with constraints ${JSON.stringify(constraints)}`, function () {
 
                 beforeEach(function () {
                     request = new validation.ValidationRequest();
@@ -94,7 +94,7 @@ describe("Non-negative Integers", function () {
                     request.expectedResponseType = "nonNegativeInteger";
                     request.constraints = constraints;
 
-                    var validator = new validation.Validator();
+                    var validator = new validation.Validator("messages.en-gb.xml");
 
                     response = validator.validate(request);
 

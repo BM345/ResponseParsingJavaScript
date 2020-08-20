@@ -1,24 +1,22 @@
 
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-
 export class ValueError extends Error {
     constructor(...params) {
         super(...params);
     }
 }
 
-
 export class Messages {
-    constructor(messagesFile = "../rp/messages.en-gb.xml") {
+    constructor(messagesFile = "") {
 
         this.messagesFile = messagesFile;
         this.messages = [];
 
-        return;
+        if (messagesFile === "") {
+            return;
+        }
 
         var httpRequest = new XMLHttpRequest();
 
-        httpRequest.timeout = 3000;
         httpRequest.open("GET", this.messagesFile, false);
         httpRequest.send();
 
@@ -35,7 +33,6 @@ export class Messages {
 
     getMessageById(i, parameters = []) {
         if (this.messages.filter(m => m["id"] == i).length == 0) {
-            return "";
             throw new ValueError("There is no message with the id '" + i.toString() + "' in " + this.messagesFile + ".");
         }
 

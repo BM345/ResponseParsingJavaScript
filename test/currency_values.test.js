@@ -73,7 +73,7 @@ describe("Currency Values", function () {
             var request;
             var response;
 
-            describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
+            describe(`Validating "${studentsResponse}" with constraints ${JSON.stringify(constraints)}`, function () {
 
                 beforeEach(function () {
                     request = new validation.ValidationRequest();
@@ -82,7 +82,7 @@ describe("Currency Values", function () {
                     request.expectedResponseType = "currencyValue";
                     request.constraints = constraints;
 
-                    var validator = new validation.Validator();
+                    var validator = new validation.Validator("messages.en-gb.xml");
 
                     response = validator.validate(request);
                 });

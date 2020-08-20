@@ -249,7 +249,7 @@ describe("Decimals", function () {
                     request.expectedResponseType = "decimal";
                     request.constraints = constraints;
 
-                    var validator = new validation.Validator();
+                    var validator = new validation.Validator("messages.en-gb.xml");
 
                     response = validator.validate(request);
                 });

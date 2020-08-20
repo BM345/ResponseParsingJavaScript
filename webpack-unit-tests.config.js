@@ -1,9 +1,8 @@
 let path = require("path");
+let glob = require("glob");
 
-let entry = {
-    "rp": "./rp/validation.js"
-}
-let outputFolder = "distribution";
+let entry = glob.sync(__dirname + "/test/*.test.js");
+let outputFolder = "test-output";
 
 module.exports = {
     entry: entry,

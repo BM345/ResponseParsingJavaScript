@@ -3,34 +3,17 @@ import * as parsing from "../rp/parsing.js";
 import * as validation from "../rp/validation.js";
 import * as constraints from "../test/constraints.js";
 import * as general from "../test/general.js";
-import MockXMLHttpRequest from "mock-xmlhttprequest";
+var MockXMLHttpRequest = require("mock-xmlhttprequest");
 
 import fs from "fs";
 import path from "path";
 
-var messagesFilePath = path.resolve( "rp/messages.en-gb.xml")
-var messagesFile = fs.readFileSync(messagesFilePath, {encoding: "utf-8"});
+var messagesFilePath = path.resolve("rp/messages.en-gb.xml");
+var messagesFile = fs.readFileSync(messagesFilePath, { encoding: "utf-8" });
 
 var merge = general.merge;
 
 describe("Integers", function () {
-
-    var server;
-
-    before(function () {
-        server = MockXMLHttpRequest.newServer({
-            get: ["/messages.en-gb.xml", {
-                headers: { "Content-Type": "application/xml" },
-                body: messagesFile,
-            }],
-        }).install();
-    });
-
-    after(function () {
-        if (server !== undefined) {
-            server.remove();
-        }
-    });
 
     describe("Parsing integers", function () {
         [
@@ -228,6 +211,23 @@ describe("Integers", function () {
             var integer;
 
             describe(`Validating "${studentsResponse}" with constraints ${constraints}`, function () {
+
+                var server;
+
+                before(function () {
+                    server = MockXMLHttpRequest.newServer({
+                        get: ["/messages.en-gb.xml", {
+                            headers: { "Content-Type": "application/xml" },
+                            body: messagesFile,
+                        }],
+                    }).install();
+                });
+
+                after(function () {
+                    if (server !== undefined) {
+                        server.remove();
+                    }
+                });
 
                 beforeEach(function () {
                     request = new validation.ValidationRequest();

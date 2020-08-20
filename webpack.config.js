@@ -8,7 +8,7 @@ let entry = {
 let outputFolder = "distribution";
 
 if (process.env.TESTBUILD) {
-    entry = glob.sync(__dirname + "/test/*.test.js");
+    entry = glob.sync(__dirname + "/test/integers.test.js");
     outputFolder = "test-output";
 }
 

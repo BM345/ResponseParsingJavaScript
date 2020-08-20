@@ -17,18 +17,26 @@ export class Messages {
 
         var httpRequest = new XMLHttpRequest();
 
-        httpRequest.open("GET", this.messagesFile, false);
-        httpRequest.send();
+        httpRequest.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
 
-        var xmlDocument = httpRequest.responseXML;
-        var xmlElements = xmlDocument.getElementsByTagName("message");
+                var domParser = new DOMParser();
+                var xmlDocument = domParser.parseFromString( httpRequest.responseXML);
+                console.log(xmlDocument);
+                var xmlElements = xmlDocument.getElementsByTagName("message");
 
-        for (let xmlElement of xmlElements) {
-            var i = xmlElement.getAttribute("id");
-            var text = xmlElement.textContent;
+                for (let xmlElement of xmlElements) {
+                    var i = xmlElement.getAttribute("id");
+                    var text = xmlElement.textContent;
 
-            this.messages.push({ "id": i, "text": text });
+                    this.messages.push({ "id": i, "text": text });
+                }
+            }
         }
+
+        httpRequest.timeout = 3000;
+        httpRequest.open("GET", this.messagesFile);
+        httpRequest.send();
     }
 
     getMessageById(i, parameters = []) {

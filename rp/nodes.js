@@ -73,6 +73,15 @@ export class RPWhiteSpaceNode extends RPNode {
     }
 }
 
+export class RPTextNode extends RPNode {
+    constructor() {
+        super("text");
+
+        this.value = "";
+        this.numberOfWords = 0;
+    }
+}
+
 export class RPNumberNode extends RPNode {
     constructor() {
         super("number");

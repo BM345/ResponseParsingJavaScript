@@ -32,12 +32,12 @@ export class Validator {
         this.integerAllowedCharacters = "0123456789+- ";
         this.nonNegativeIntegerAllowedCharacters = "0123456789+ ";
         this.decimalAllowedCharacters = "0123456789.+- ";
+        this.textAllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.'- ";
     }
 
-    validate(request) {
-        if (request.constraints === null || request.constraints === undefined) {
-            request.constraints = {};
-        }
+    setParserSettings(request) {
+
+        // Numeric Parser Settings
 
         if (request.constraints["removeLeadingZerosFromNormalizedForm"] === true) {
             this.parser.settings.removeLeadingZerosFromSimplifiedForms = true;
@@ -63,7 +63,60 @@ export class Validator {
             this.parser.settings.normaliseSigns = "makeImplicit";
         }
 
+        // Text Parser Settings
+
+        if (request.constraints["normaliseWhiteSpaceInText"] === false) {
+            this.parser.settings.normaliseWhiteSpaceInText = false;
+        }
+
+        if (request.constraints["removeApostrophesFromText"] === false) {
+            this.parser.settings.removeApostrophesFromText = false;
+        }
+
+        if (request.constraints["removeHyphensFromText"] === false) {
+            this.parser.settings.removeHyphensFromText = false;
+        }
+
+        if (request.constraints["removeFullStopsFromText"] === false) {
+            this.parser.settings.removeFullStopsFromText = false;
+        }
+
+        if (request.constraints["removeCommasFromText"] === false) {
+            this.parser.settings.removeCommasFromText = false;
+        }
+
+        if (request.constraints["normalizeCase"] === "lower") {
+            this.parser.settings.normaliseCase = "lower";
+        }
+
+        if (request.constraints["normalizeCase"] === "upper") {
+            this.parser.settings.normaliseCase = "upper";
+        }
+
+        if (request.constraints["normalizeCase"] === "none") {
+            this.parser.settings.normaliseCase = "none";
+        }
+
+        if (request.constraints["removeAccentsFromText"] === false) {
+            this.parser.settings.removeAccentsFromText = false;
+        }
+    }
+
+    validate(request) {
+        if (request.constraints === null || request.constraints === undefined) {
+            request.constraints = {};
+        }
+
+        // First, set the settings for the parser. There are certain things that are easier to do when the parser first takes in the text, rather than later on (such as normalising numbers and text).
+        // The parser settings determine how these things are done.
+
+        this.setParserSettings(request);
+
+        // Now parse the student's answer.
+
         var result = this.parser.getParseResult(request.studentsResponse);
+
+        // Make the validation response object.
 
         var response = new ValidationResponse();
 
@@ -86,6 +139,9 @@ export class Validator {
             }
             this.validateCurrencyValue(request, result, response);
         }
+        else if (request.expectedResponseType === "text") {
+            this.validateText(request, result, response);
+        }
         else {
             throw new ValueError("Unsupported response type '" + request.expectedResponseType + "'.");
         }
@@ -98,6 +154,46 @@ export class Validator {
         }
 
         return response;
+    }
+
+    validateText(request, result, response) {
+        response.isAccepted = true;
+
+        for (var i = 0; i < request.studentsResponse.length; i++) {
+            var c = request.studentsResponse[i];
+
+            if (!parsing.isOneOf(c, this.textAllowedCharacters)) {
+                response.isAccepted = false;
+                response.messageText = this.messages.getMessageById("onlyUseTextCharacters");
+                return;
+            }
+        }
+
+        if (result === null) {
+            response.isAccepted = false;
+            response.messageText = this.messages.getMessageById("mustBeText");
+            return;
+        }
+
+        if (result.type !== "text") {
+            response.isAccepted = false;
+            response.messageText = this.messages.getMessageById("mustBeText");
+            return;
+        }
+
+        if (request.constraints["mustHaveExactlyNWords"] !== undefined && request.constraints["mustHaveExactlyNWords"] > 0 && result.numberOfWords !== request.constraints["mustHaveExactlyNWords"]) {
+            response.isAccepted = false;
+            var n = request.constraints["mustHaveExactlyNWords"];
+
+            if (n == 1) {
+                response.messageText = this.messages.getMessageById("mustHaveExactly1Word");
+            }
+            else {
+                response.messageText = this.messages.getMessageById("mustHaveExactlyNWords", [n]);
+            }
+
+            return;
+        }
     }
 
     validateInteger(request, result, response) {

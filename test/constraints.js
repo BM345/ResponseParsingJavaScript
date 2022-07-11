@@ -99,3 +99,63 @@ export var egp = {
 export var sar = {
     "currency": "SAR"
 }
+
+export var normaliseWhiteSpaceInText = {
+    "normaliseWhiteSpaceInText": true
+}
+
+export var dontNormaliseWhiteSpaceInText = {
+    "normaliseWhiteSpaceInText": false
+}
+
+export var removeApostrophesFromText = {
+    "removeApostrophesFromText": true
+}
+
+export var dontRemoveApostrophesFromText = {
+    "removeApostrophesFromText": false
+}
+
+export var removeHyphensFromText = {
+    "removeHyphensFromText": true
+}
+
+export var dontRemoveHyphensFromText = {
+    "removeHyphensFromText": false
+}
+
+export var removeFullStopsFromText = {
+    "removeFullStopsFromText": true
+}
+
+export var dontRemoveFullStopsFromText = {
+    "removeFullStopsFromText": false
+}
+
+export var removeCommasFromText = {
+    "removeCommasFromText": true
+}
+
+export var dontRemoveCommasFromText = {
+    "removeCommasFromText": false
+}
+
+export var makeLowerCase = {
+    "normalizeCase": "lower"
+}
+
+export var makeUpperCase = {
+    "normalizeCase": "upper"
+}
+
+export var allowAnyCase = {
+    "normalizeCase": "none"
+}
+
+export var removeAccents = {
+    "removeAccentsFromText": true
+}
+
+export var dontRemoveAccents = {
+    "removeAccentsFromText": false
+}

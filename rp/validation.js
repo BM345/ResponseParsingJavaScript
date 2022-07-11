@@ -36,6 +36,9 @@ export class Validator {
     }
 
     setParserSettings(request) {
+        if (request.constraints === null || request.constraints === undefined) {
+            request.constraints = {};
+        }
 
         // Numeric Parser Settings
 

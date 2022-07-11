@@ -173,6 +173,15 @@ class RPWhiteSpaceNode extends RPNode {
     }
 }
 
+class RPTextNode extends RPNode {
+    constructor() {
+        super("text");
+
+        this.value = "";
+        this.numberOfWords = 0;
+    }
+}
+
 class RPNumberNode extends RPNode {
     constructor() {
         super("number");
@@ -238,6 +247,11 @@ class RPCurrencyValueNode extends RPNumberNode {
 
 
 
+const HYPHEN = "-";
+const EN_DASH = "–";
+const EM_DASH = "—";
+const TRUE_MINUS_SIGN = "−";
+const TRUE_APOSTROPHE = "’";
 
 class Marker {
     constructor() {
@@ -261,6 +275,14 @@ class ParserSettings {
         this.removeTrailingDecimalPointFromSimplifiedForms = true;
 
         this.normaliseSigns = "notSet";
+
+        this.normaliseWhiteSpaceInText = true;
+        this.removeApostrophesFromText = true;
+        this.removeHyphensFromText = true;
+        this.removeFullStopsFromText = true;
+        this.removeCommasFromText = true;
+        this.normaliseCase = "lower";
+        this.removeAccentsFromText = true;
     }
 }
 
@@ -275,6 +297,72 @@ function isOneOf(character, characters) {
 class parsing_Parser {
     constructor() {
         this.settings = new ParserSettings();
+
+        // Make a list of all the characters that are simply a standard Latin letter with an accent / diacritic. This is used for removing such accents / diacritics.
+        this.accentedLetters = [
+            ["ÅǺḀĂẶẮẰẲẴȂÂẬẤẦẪẨẢǍȺȦǠẠÄǞÀȀÁĀĀ̀Ã", "A"],
+            ["åǻḁăặắằẳẵȃâậấầẫẩảǎⱥȧǡạäǟàȁáāā̀ã", "a"],
+            ["ɃḂḄḆ", "B"],
+            ["ƀḃḅḇ", "b"],
+            ["ĆĈČĊḈƇȻÇ", "C"],
+            ["ćĉčċḉƈȼç", "c"],
+            ["ḊḌḐḒĎḎ", "D"],
+            ["ḋḍḑḓďḏ", "d"],
+            ["ĔḜȆÊỀẾỂỄỆẺḘĚɆĖẸËÈȄÉĒḔḖẼḚĘȨ", "E"],
+            ["ĕḝȇêềếểễệẻḙěɇėẹëèȅéēḕḗẽḛęȩ", "e"],
+            ["ǴǤĜǦĞĢĠḠꞠ", "G"],
+            ["ǵǥĝǧğģġḡꞡ", "g"],
+            ["ĤȞĦḨⱧḤḢḦḪ", "H"],
+            ["ĥȟħḩⱨẖḥḣḧḫ", "h"],
+            ["ỊĬÎǏƗÏḮÍÌȈĮĪỈȊĨḬ", "I"],
+            ["ịĭîǐɨïḯíìȉįīỉȋĩḭ", "i"],
+            ["ĴɈ", "J"],
+            ["ĵǰɉ", "j"],
+            ["ꝀḰǨḲĶⱩḴ", "K"],
+            ["ꝁḱǩḳķⱪḵ", "k"],
+            ["ĹŁĽḸĻĿḶḺḼȽⱠ", "L"],
+            ["ĺłľḹļŀḷḻḽƚⱡ", "l"],
+            ["ḾṀṂ", "M"],
+            ["ḿṁṃᵯ", "m"],
+            ["ŃÑŇǸṄṆŅṈṊꞤ", "N"],
+            ["ńñňǹṅṇņṉṋꞥᵰ", "n"],
+            ["ØǾÖȪÓÒÔỐỒỔỖỘǑŐŎȎȮȰỌƟƠỚỜỠỢỞỎŌṒṐÕȬṌṎǪȌǬ", "O"],
+            ["øǿöȫóòôốồổỗộǒőŏȏȯȱọɵơớờỡợởỏōṓṑõȭṍṏǫȍǭ", "o"],
+            ["ṔṖⱣ", "P"],
+            ["ṕṗᵽ", "p"],
+            ["", "Q"],
+            ["q̃", "q"],
+            ["ŔɌŘŖṘȐȒṚṜṞꞦ", "R"],
+            ["ŕɍřŗṙȑȓṛṝṟꞧ", "r"],
+            ["ŚṠṨṤṢꞨŜṦŠŞȘⱾ", "S"],
+            ["śṡṩṥṣs̩ꞩŝṧšşșȿᵴ", "s"],
+            ["ŤṪŢṬȚṰṮŦȾ", "T"],
+            ["ťṫẗţṭțƫṱṯŧⱦ", "t"],
+            ["ŬɄỤÜǛǗǙǕṲÚÙÛṶǓȖŰŬƯỨỪỬỰỮỦŪṺŨṸṴŲȔŮ", "U"],
+            ["ŭʉụüǜǘǚǖṳúùûṷǔȗűŭưứừửựủūṻũṹṵųȕů", "u"],
+            ["ṽṿ", "V"],
+            ["ṼṾ", "v"],
+            ["ẂẀŴẄẆẈ", "W"],
+            ["ẃẁŵẅẇẉẘ", "w"],
+            ["ẌẊ", "X"],
+            ["ẍẋ", "x"],
+            ["ÝỲŶŸỸẎỴỶȲɎƳ", "Y"],
+            ["ýỳŷÿỹẏỵẙỷȳɏƴ", "y"],
+            ["ŹẐŽŻẒẔƵ", "Z"],
+            ["źẑžżẓẕƶᵶ", "z"]
+        ]
+
+        // Make a dictionary of the above list - makes it easier to find and replace accented letters.
+        this.accentedLettersDictionary = {}
+
+        this.accentedLetters.forEach(ls => {
+            ls[0].split("").forEach(l => {
+                this.accentedLettersDictionary[l] = ls[1];
+            });
+        });
+
+        // All of the accented letters as a single string.
+        this.allAccentedLetters = this.accentedLetters.map(ls => ls[0]).join("");
     }
 
     getParseResult(inputText) {
@@ -288,6 +376,14 @@ class parsing_Parser {
 
         if (number !== null && marker.position == inputText.length) {
             return number;
+        }
+
+        var text = this.parseText(inputText, marker)
+
+        this.parseWhiteSpace(inputText, marker)
+
+        if (text !== null && marker.position == inputText.length) {
+            return text;
         }
 
         return null;
@@ -325,6 +421,108 @@ class parsing_Parser {
 
         node._latex = t;
         node._asciiMath = t;
+
+        return node;
+    }
+
+    removeAccentsFromText(text) {
+        var t = "";
+
+        text.split("").forEach(c => {
+            if (c in this.accentedLettersDictionary) {
+                t += this.accentedLettersDictionary[c];
+            }
+            else {
+                t += c;
+            }
+        });
+
+        return t;
+    }
+
+
+    parseText(inputText, marker, includeWhiteSpace = true) {
+        var t = "";
+        var start = marker.position;
+
+        var characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.'" + TRUE_APOSTROPHE + HYPHEN + TRUE_MINUS_SIGN + this.allAccentedLetters;
+        var n = 0;
+
+        while (marker.position < inputText.length) {
+            var c = cut(inputText, marker.position);
+
+            if ((n >= 0 && isOneOf(c, characters)) || (n > 0 && isOneOf(c, " \t\n") && includeWhiteSpace)) {
+                t += c;
+                n += 1;
+                marker.position += 1;
+            }
+            else {
+                break;
+            }
+        }
+
+        if (t.length === 0) {
+            return null;
+        }
+
+        var end = marker.position;
+
+        var node = new RPTextNode();
+
+        node.start = start;
+        node.end = end;
+        node._text = t;
+
+        node.value = t;
+
+        if (this.settings.normaliseWhiteSpaceInText) {
+            // In order to allow text made up of many words, this parseText function will also take in white space 
+            // (rather than leaving it up to the dedicated white space function).
+            // If normaliseWhiteSpaceInText is set to true, any white space that is longer than a single space will be compressed into a single space.
+            node.value = node.value.replaceAll(/\s+/g, " ");
+            node.value = node.value.trim()
+        }
+
+        // Always change true apostrophes into the vertical ones.
+        node.value = node.value.replaceAll(TRUE_APOSTROPHE, "'");
+
+        if (this.settings.removeApostrophesFromText) {
+            node.value = node.value.replaceAll("'", "");
+        }
+
+        if (this.settings.removeHyphensFromText) {
+            // Remove both the hyphen and the en dash, as en dashes are sometimes used instead of hyphens.
+            // Ignore the true minus sign, as it's unlikely here.
+            node.value = node.value.replaceAll(HYPHEN, ""); // Hyphen
+            node.value = node.value.replaceAll(EN_DASH, ""); // En dash
+        }
+
+        if (this.settings.removeFullStopsFromText) {
+            node.value = node.value.replaceAll(".", "");
+        }
+
+        if (this.settings.removeCommasFromText) {
+            node.value = node.value.replaceAll(",", "");
+        }
+
+        if (this.settings.normaliseCase == "lower") {
+            node.value = node.value.toLowerCase();
+        }
+
+        if (this.settings.normaliseCase == "upper") {
+            node.value = node.value.toUpperCase();
+        }
+
+        if (this.settings.removeAccentsFromText) {
+            // Remove any accents on the letters. This means that if the answer is 'cafe', and the student types 'café', they can still get the answer right.
+            node.value = this.removeAccentsFromText(node.value);
+        }
+
+        node.value = node.value.trim();
+        node.numberOfWords = node.value.split(" ").map(w => w.trim()).filter(w => w != "").length;
+
+        node._latex = t;
+        node._asciiMath = node.value;
 
         return node;
     }
@@ -628,12 +826,15 @@ class validation_Validator {
         this.integerAllowedCharacters = "0123456789+- ";
         this.nonNegativeIntegerAllowedCharacters = "0123456789+ ";
         this.decimalAllowedCharacters = "0123456789.+- ";
+        this.textAllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.'- ";
     }
 
-    validate(request) {
+    setParserSettings(request) {
         if (request.constraints === null || request.constraints === undefined) {
             request.constraints = {};
         }
+
+        // Numeric Parser Settings
 
         if (request.constraints["removeLeadingZerosFromNormalizedForm"] === true) {
             this.parser.settings.removeLeadingZerosFromSimplifiedForms = true;
@@ -659,7 +860,60 @@ class validation_Validator {
             this.parser.settings.normaliseSigns = "makeImplicit";
         }
 
+        // Text Parser Settings
+
+        if (request.constraints["normaliseWhiteSpaceInText"] === false) {
+            this.parser.settings.normaliseWhiteSpaceInText = false;
+        }
+
+        if (request.constraints["removeApostrophesFromText"] === false) {
+            this.parser.settings.removeApostrophesFromText = false;
+        }
+
+        if (request.constraints["removeHyphensFromText"] === false) {
+            this.parser.settings.removeHyphensFromText = false;
+        }
+
+        if (request.constraints["removeFullStopsFromText"] === false) {
+            this.parser.settings.removeFullStopsFromText = false;
+        }
+
+        if (request.constraints["removeCommasFromText"] === false) {
+            this.parser.settings.removeCommasFromText = false;
+        }
+
+        if (request.constraints["normalizeCase"] === "lower") {
+            this.parser.settings.normaliseCase = "lower";
+        }
+
+        if (request.constraints["normalizeCase"] === "upper") {
+            this.parser.settings.normaliseCase = "upper";
+        }
+
+        if (request.constraints["normalizeCase"] === "none") {
+            this.parser.settings.normaliseCase = "none";
+        }
+
+        if (request.constraints["removeAccentsFromText"] === false) {
+            this.parser.settings.removeAccentsFromText = false;
+        }
+    }
+
+    validate(request) {
+        if (request.constraints === null || request.constraints === undefined) {
+            request.constraints = {};
+        }
+
+        // First, set the settings for the parser. There are certain things that are easier to do when the parser first takes in the text, rather than later on (such as normalising numbers and text).
+        // The parser settings determine how these things are done.
+
+        this.setParserSettings(request);
+
+        // Now parse the student's answer.
+
         var result = this.parser.getParseResult(request.studentsResponse);
+
+        // Make the validation response object.
 
         var response = new ValidationResponse();
 
@@ -682,6 +936,9 @@ class validation_Validator {
             }
             this.validateCurrencyValue(request, result, response);
         }
+        else if (request.expectedResponseType === "text") {
+            this.validateText(request, result, response);
+        }
         else {
             throw new ValueError("Unsupported response type '" + request.expectedResponseType + "'.");
         }
@@ -694,6 +951,46 @@ class validation_Validator {
         }
 
         return response;
+    }
+
+    validateText(request, result, response) {
+        response.isAccepted = true;
+
+        for (var i = 0; i < request.studentsResponse.length; i++) {
+            var c = request.studentsResponse[i];
+
+            if (!isOneOf(c, this.textAllowedCharacters)) {
+                response.isAccepted = false;
+                response.messageText = this.messages.getMessageById("onlyUseTextCharacters");
+                return;
+            }
+        }
+
+        if (result === null) {
+            response.isAccepted = false;
+            response.messageText = this.messages.getMessageById("mustBeText");
+            return;
+        }
+
+        if (result.type !== "text") {
+            response.isAccepted = false;
+            response.messageText = this.messages.getMessageById("mustBeText");
+            return;
+        }
+
+        if (request.constraints["mustHaveExactlyNWords"] !== undefined && request.constraints["mustHaveExactlyNWords"] > 0 && result.numberOfWords !== request.constraints["mustHaveExactlyNWords"]) {
+            response.isAccepted = false;
+            var n = request.constraints["mustHaveExactlyNWords"];
+
+            if (n == 1) {
+                response.messageText = this.messages.getMessageById("mustHaveExactly1Word");
+            }
+            else {
+                response.messageText = this.messages.getMessageById("mustHaveExactlyNWords", [n]);
+            }
+
+            return;
+        }
     }
 
     validateInteger(request, result, response) {

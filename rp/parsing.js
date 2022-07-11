@@ -110,7 +110,7 @@ export class Parser {
         this.accentedLettersDictionary = {}
 
         this.accentedLetters.forEach(ls => {
-            ls[0].forEach(l => {
+            ls[0].split("").forEach(l => {
                 this.accentedLettersDictionary[l] = ls[1];
             });
         });
@@ -182,8 +182,8 @@ export class Parser {
     removeAccentsFromText(text) {
         var t = "";
 
-        text.forEach(c => {
-            if (this.accentedLettersDictionary[c] !== undefined) {
+        text.split("").forEach(c => {
+            if (c in this.accentedLettersDictionary) {
                 t += this.accentedLettersDictionary[c];
             }
             else {
@@ -221,7 +221,7 @@ export class Parser {
 
         var end = marker.position;
 
-        var node = nodes.RPTextNode();
+        var node = new nodes.RPTextNode();
 
         node.start = start;
         node.end = end;
@@ -233,30 +233,30 @@ export class Parser {
             // In order to allow text made up of many words, this parseText function will also take in white space 
             // (rather than leaving it up to the dedicated white space function).
             // If normaliseWhiteSpaceInText is set to true, any white space that is longer than a single space will be compressed into a single space.
-            node.value = re.sub("\s+", " ", node.value);
-            node.value = node.value.strip();
+            node.value = node.value.replaceAll(/\s+/g, " ");
+            node.value = node.value.trim()
         }
 
         // Always change true apostrophes into the vertical ones.
-        node.value = node.value.replace(TRUE_APOSTROPHE, "'");
+        node.value = node.value.replaceAll(TRUE_APOSTROPHE, "'");
 
         if (this.settings.removeApostrophesFromText) {
-            node.value = node.value.replace("'", "");
+            node.value = node.value.replaceAll("'", "");
         }
 
         if (this.settings.removeHyphensFromText) {
             // Remove both the hyphen and the en dash, as en dashes are sometimes used instead of hyphens.
             // Ignore the true minus sign, as it's unlikely here.
-            node.value = node.value.replace(HYPHEN, ""); // Hyphen
-            node.value = node.value.replace(EN_DASH, ""); // En dash
+            node.value = node.value.replaceAll(HYPHEN, ""); // Hyphen
+            node.value = node.value.replaceAll(EN_DASH, ""); // En dash
         }
 
         if (this.settings.removeFullStopsFromText) {
-            node.value = node.value.replace(".", "");
+            node.value = node.value.replaceAll(".", "");
         }
 
         if (this.settings.removeCommasFromText) {
-            node.value = node.value.replace(",", "");
+            node.value = node.value.replaceAll(",", "");
         }
 
         if (this.settings.normaliseCase == "lower") {

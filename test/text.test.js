@@ -92,11 +92,11 @@ describe("Text", function () {
                     assert.equal(node.type, "text");
                 });
 
-                it(`The parser should correctly normalise the text.`, function () {
+                it(`The parser should correctly normalise the text to '${normalisedStudentsResponse}'.`, function () {
                     assert.equal(node.value, normalisedStudentsResponse);
                 });
 
-                it(`The parser should correctly count the number of words.`, function () {
+                it(`The parser should correctly count the number of words as ${numberOfWords}.`, function () {
                     assert.equal(node.numberOfWords, numberOfWords);
                 });
             });
@@ -105,29 +105,29 @@ describe("Text", function () {
 
     describe("Validating text", function () {
         [
-            ["apple", {}, True, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 0}, True, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 1}, True, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 2}, False, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 3}, False, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 4}, False, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 5}, False, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 6}, False, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 7}, False, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 8}, False, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 9}, False, "apple"],
-        ["apple", {"mustHaveExactlyNWords": 10}, False, "apple"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 0}, True, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 1}, False, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 2}, False, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 3}, True, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 4}, False, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 5}, False, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 6}, False, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 7}, False, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 8}, False, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 9}, False, "apples bananas pears"],
-        ["apples, bananas, pears", {"mustHaveExactlyNWords": 10}, False, "apples bananas pears"],
+            ["apple", {}, true, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 0}, true, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 1}, true, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 2}, false, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 3}, false, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 4}, false, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 5}, false, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 6}, false, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 7}, false, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 8}, false, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 9}, false, "apple"],
+        ["apple", {"mustHaveExactlyNWords": 10}, false, "apple"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 0}, true, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 1}, false, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 2}, false, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 3}, true, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 4}, false, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 5}, false, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 6}, false, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 7}, false, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 8}, false, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 9}, false, "apples bananas pears"],
+        ["apples, bananas, pears", {"mustHaveExactlyNWords": 10}, false, "apples bananas pears"],
         ].forEach(a => {
             var studentsResponse = a[0];
             var constraints = a[1];

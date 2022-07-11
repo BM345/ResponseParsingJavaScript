@@ -25,4 +25,8 @@
     <message id="mustHaveAtLeast1DP">Give your answer to at least 1 decimal place.</message>
     <message id="mustHaveNoMoreThan1DP">Give your answer to no more than 1 decimal place.</message>
     <message id="mustHaveExactly1DP">Give your answer to 1 decimal place.</message>
+    <message id="onlyUseTextCharacters">Only use letters that are part of the English alphabet, the comma, the full stop, the apostrophe, and the hyphen.</message>
+    <message id="mustBeText">Your answer must be a word or a phrase.</message>
+    <message id="mustHaveExactlyNWords">Your answer must be #p1# words.</message>
+    <message id="mustHaveExactly1Word">Your answer must be a single word.</message>
 </messages>

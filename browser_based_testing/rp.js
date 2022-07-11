@@ -481,7 +481,7 @@ class parsing_Parser {
             // (rather than leaving it up to the dedicated white space function).
             // If normaliseWhiteSpaceInText is set to true, any white space that is longer than a single space will be compressed into a single space.
             node.value = node.value.replaceAll(/\s+/g, " ");
-            node.value = node.value.trim()
+            node.value = node.value.trim();
         }
 
         // Always change true apostrophes into the vertical ones.

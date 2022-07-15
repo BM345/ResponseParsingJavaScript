@@ -232,11 +232,11 @@ var sar = {
 }
 
 var normaliseWhiteSpaceInText = {
-    "normaliseWhiteSpaceInText": true
+    "normalizeWhiteSpaceInText": true
 }
 
 var dontNormaliseWhiteSpaceInText = {
-    "normaliseWhiteSpaceInText": false
+    "normalizeWhiteSpaceInText": false
 }
 
 var removeApostrophesFromText = {
@@ -815,7 +815,7 @@ var objectKeys = Object.keys || function (obj) {
 __webpack_require__.d(__webpack_exports__, "a", function() { return /* binding */ ValidationRequest; });
 __webpack_require__.d(__webpack_exports__, "b", function() { return /* binding */ validation_Validator; });
 
-// UNUSED EXPORTS: ValidationResponse
+// UNUSED EXPORTS: ValidationResponse, GERMAN_SPECIAL_LETTERS, FRENCH_SPECIAL_LETTERS, SPANISH_SPECIAL_LETTERS, PORTUGUESE_SPECIAL_LETTERS, ALL_SPECIAL_LETTERS
 
 // EXTERNAL MODULE: ./rp/nodes.js
 var nodes = __webpack_require__(5);
@@ -902,6 +902,13 @@ class ValidationResponse {
 }
 
 
+const GERMAN_SPECIAL_LETTERS = "ÄäÖöÜüẞß";
+const FRENCH_SPECIAL_LETTERS = "ÉéÀàÈèÙùÂâÊêÎîÔôÛûËëÏïÜüŸÿÇçŒœÆæ";
+const SPANISH_SPECIAL_LETTERS = "ÁáÉéÍíÓóÚúÜüÑñ";
+const PORTUGUESE_SPECIAL_LETTERS = "ÁáÂâÃãÀàÇçÉéÊêÍíÓóÔôÕõÚú";
+const ALL_SPECIAL_LETTERS = GERMAN_SPECIAL_LETTERS + FRENCH_SPECIAL_LETTERS + SPANISH_SPECIAL_LETTERS + PORTUGUESE_SPECIAL_LETTERS;
+
+
 class validation_Validator {
     constructor(messagesFile = "") {
         this.parser = new parsing["a" /* Parser */]();
@@ -910,7 +917,7 @@ class validation_Validator {
         this.integerAllowedCharacters = "0123456789+- ";
         this.nonNegativeIntegerAllowedCharacters = "0123456789+ ";
         this.decimalAllowedCharacters = "0123456789.+- ";
-        this.textAllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.'- ";
+        this.textAllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.'- " + ALL_SPECIAL_LETTERS;
     }
 
     setParserSettings(request) {
@@ -946,7 +953,7 @@ class validation_Validator {
 
         // Text Parser Settings
 
-        if (request.constraints["normaliseWhiteSpaceInText"] === false) {
+        if (request.constraints["normalizeWhiteSpaceInText"] === false) {
             this.parser.settings.normaliseWhiteSpaceInText = false;
         }
 
@@ -4055,7 +4062,30 @@ describe("Text", function () {
             ["The co-ordinates of John's café are   two, three.",  merge( _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontNormaliseWhiteSpaceInText */ "e"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveApostrophesFromText */ "g"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveHyphensFromText */ "j"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveFullStopsFromText */ "i"]), "the co-ordinates of john's cafe are   two three.", 8],
             ["The co-ordinates of John's café are   two, three.",  merge( _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontNormaliseWhiteSpaceInText */ "e"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveApostrophesFromText */ "g"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveHyphensFromText */ "j"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveFullStopsFromText */ "i"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveCommasFromText */ "h"]), "the co-ordinates of john's cafe are   two, three.", 8],
             ["The co-ordinates of John's café are   two, three.", merge( _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontNormaliseWhiteSpaceInText */ "e"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveApostrophesFromText */ "g"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveHyphensFromText */ "j"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveFullStopsFromText */ "i"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveCommasFromText */ "h"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"]), "the co-ordinates of john's café are   two, three.", 8],
-            ["The co-ordinates of John's café are   two, three.", merge( _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontNormaliseWhiteSpaceInText */ "e"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveApostrophesFromText */ "g"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveHyphensFromText */ "j"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveFullStopsFromText */ "i"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveCommasFromText */ "h"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowAnyCase */ "a"]), "The co-ordinates of John's café are   two, three.", 8],
+            ["The co-ordinates of John's café are   two, three.", merge( _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontNormaliseWhiteSpaceInText */ "e"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveApostrophesFromText */ "g"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveHyphensFromText */ "j"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveFullStopsFromText */ "i"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveCommasFromText */ "h"],  _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* allowAnyCase */ "a"]), "The co-ordinates of John's café are   two, three.", 8],  ["âme", {}, "ame", 1],
+            ["île", {}, "ile", 1],
+            ["hôtel", {}, "hotel", 1],
+            ["sûr", {}, "sur", 1],
+            ["être", {}, "etre", 1],
+            ["là", {}, "la", 1],
+            ["très", {}, "tres", 1],
+            ["où", {}, "ou", 1],
+            ["été", {}, "ete", 1],
+            ["Noël", {}, "noel", 1],
+            ["maïs", {}, "mais", 1],
+            ["ambigüe", {}, "ambigue", 1],
+            ["âme", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "âme", 1],
+            ["île", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "île", 1],
+            ["hôtel", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "hôtel", 1],
+            ["sûr", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "sûr", 1],
+            ["être", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "être", 1],
+            ["là", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "là", 1],
+            ["très", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "très", 1],
+            ["où", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "où", 1],
+            ["été", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "été", 1],
+            ["Noël", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "noël", 1],
+            ["maïs", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "maïs", 1],
+            ["ambigüe", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], "ambigüe", 1],
         ].forEach(a => {
             var studentsResponse = a[0];
             var constraints = a[1];
@@ -4099,6 +4129,16 @@ describe("Text", function () {
     describe("Validating text", function () {
         [
             ["apple", {}, true, "apple"],
+            ["apple?", {}, false, "apple"],
+            ["apple!", {}, false, "apple"],
+            ["apple:", {}, false, "apple"],
+            ["apple;", {}, false, "apple"],
+            ["apple()", {}, false, "apple"],
+            ["apple[]", {}, false, "apple"],
+            ["apple{}", {}, false, "apple"],
+            ["apple+", {}, false, "apple"],
+            ["apple*", {}, false, "apple"],
+            ["apples & pears", {}, false, "apple"],
         ["apple", {"mustHaveExactlyNWords": 0}, true, "apple"],
         ["apple", {"mustHaveExactlyNWords": 1}, true, "apple"],
         ["apple", {"mustHaveExactlyNWords": 2}, false, "apple"],
@@ -4121,6 +4161,10 @@ describe("Text", function () {
         ["apples, bananas, pears", {"mustHaveExactlyNWords": 8}, false, "apples bananas pears"],
         ["apples, bananas, pears", {"mustHaveExactlyNWords": 9}, false, "apples bananas pears"],
         ["apples, bananas, pears", {"mustHaveExactlyNWords": 10}, false, "apples bananas pears"],
+        ["hôtel", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], true, "hôtel"],
+        ["hotel", _test_constraints_js__WEBPACK_IMPORTED_MODULE_3__[/* dontRemoveAccents */ "f"], true, "hotel"],
+        ["hôtel", {}, true, "hotel"],
+        ["hotel", {}, true, "hotel"],
         ].forEach(a => {
             var studentsResponse = a[0];
             var constraints = a[1];
@@ -4151,9 +4195,13 @@ describe("Text", function () {
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.isAccepted, isAccepted);
                 });
 
+                if (response.isAccepted === true){
+
                 it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
+
+            }
 
                 it(`The expression should have the type "text".`, function () {
                     assert__WEBPACK_IMPORTED_MODULE_0___default.a.equal(text.type, "text");

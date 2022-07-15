@@ -96,6 +96,11 @@ __webpack_require__.r(__webpack_exports__);
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, "ValidationRequest", function() { return /* binding */ ValidationRequest; });
 __webpack_require__.d(__webpack_exports__, "ValidationResponse", function() { return /* binding */ ValidationResponse; });
+__webpack_require__.d(__webpack_exports__, "GERMAN_SPECIAL_LETTERS", function() { return /* binding */ GERMAN_SPECIAL_LETTERS; });
+__webpack_require__.d(__webpack_exports__, "FRENCH_SPECIAL_LETTERS", function() { return /* binding */ FRENCH_SPECIAL_LETTERS; });
+__webpack_require__.d(__webpack_exports__, "SPANISH_SPECIAL_LETTERS", function() { return /* binding */ SPANISH_SPECIAL_LETTERS; });
+__webpack_require__.d(__webpack_exports__, "PORTUGUESE_SPECIAL_LETTERS", function() { return /* binding */ PORTUGUESE_SPECIAL_LETTERS; });
+__webpack_require__.d(__webpack_exports__, "ALL_SPECIAL_LETTERS", function() { return /* binding */ ALL_SPECIAL_LETTERS; });
 __webpack_require__.d(__webpack_exports__, "Validator", function() { return /* binding */ validation_Validator; });
 
 // CONCATENATED MODULE: ./rp/nodes.js
@@ -819,6 +824,13 @@ class ValidationResponse {
 }
 
 
+const GERMAN_SPECIAL_LETTERS = "ÄäÖöÜüẞß";
+const FRENCH_SPECIAL_LETTERS = "ÉéÀàÈèÙùÂâÊêÎîÔôÛûËëÏïÜüŸÿÇçŒœÆæ";
+const SPANISH_SPECIAL_LETTERS = "ÁáÉéÍíÓóÚúÜüÑñ";
+const PORTUGUESE_SPECIAL_LETTERS = "ÁáÂâÃãÀàÇçÉéÊêÍíÓóÔôÕõÚú";
+const ALL_SPECIAL_LETTERS = GERMAN_SPECIAL_LETTERS + FRENCH_SPECIAL_LETTERS + SPANISH_SPECIAL_LETTERS + PORTUGUESE_SPECIAL_LETTERS;
+
+
 class validation_Validator {
     constructor(messagesFile = "") {
         this.parser = new parsing_Parser();
@@ -827,7 +839,7 @@ class validation_Validator {
         this.integerAllowedCharacters = "0123456789+- ";
         this.nonNegativeIntegerAllowedCharacters = "0123456789+ ";
         this.decimalAllowedCharacters = "0123456789.+- ";
-        this.textAllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.'- ";
+        this.textAllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.'- " + ALL_SPECIAL_LETTERS;
     }
 
     setParserSettings(request) {
@@ -863,7 +875,7 @@ class validation_Validator {
 
         // Text Parser Settings
 
-        if (request.constraints["normaliseWhiteSpaceInText"] === false) {
+        if (request.constraints["normalizeWhiteSpaceInText"] === false) {
             this.parser.settings.normaliseWhiteSpaceInText = false;
         }
 

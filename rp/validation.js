@@ -24,6 +24,13 @@ export class ValidationResponse {
 }
 
 
+export const GERMAN_SPECIAL_LETTERS = "ÄäÖöÜüẞß";
+export const FRENCH_SPECIAL_LETTERS = "ÉéÀàÈèÙùÂâÊêÎîÔôÛûËëÏïÜüŸÿÇçŒœÆæ";
+export const SPANISH_SPECIAL_LETTERS = "ÁáÉéÍíÓóÚúÜüÑñ";
+export const PORTUGUESE_SPECIAL_LETTERS = "ÁáÂâÃãÀàÇçÉéÊêÍíÓóÔôÕõÚú";
+export const ALL_SPECIAL_LETTERS = GERMAN_SPECIAL_LETTERS + FRENCH_SPECIAL_LETTERS + SPANISH_SPECIAL_LETTERS + PORTUGUESE_SPECIAL_LETTERS;
+
+
 export class Validator {
     constructor(messagesFile = "") {
         this.parser = new parsing.Parser();
@@ -32,7 +39,7 @@ export class Validator {
         this.integerAllowedCharacters = "0123456789+- ";
         this.nonNegativeIntegerAllowedCharacters = "0123456789+ ";
         this.decimalAllowedCharacters = "0123456789.+- ";
-        this.textAllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.'- ";
+        this.textAllowedCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ,.'- " + ALL_SPECIAL_LETTERS;
     }
 
     setParserSettings(request) {
@@ -68,7 +75,7 @@ export class Validator {
 
         // Text Parser Settings
 
-        if (request.constraints["normaliseWhiteSpaceInText"] === false) {
+        if (request.constraints["normalizeWhiteSpaceInText"] === false) {
             this.parser.settings.normaliseWhiteSpaceInText = false;
         }
 

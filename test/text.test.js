@@ -62,7 +62,30 @@ describe("Text", function () {
             ["The co-ordinates of John's café are   two, three.",  merge( constraints.dontNormaliseWhiteSpaceInText,  constraints.dontRemoveApostrophesFromText,  constraints.dontRemoveHyphensFromText,  constraints.dontRemoveFullStopsFromText), "the co-ordinates of john's cafe are   two three.", 8],
             ["The co-ordinates of John's café are   two, three.",  merge( constraints.dontNormaliseWhiteSpaceInText,  constraints.dontRemoveApostrophesFromText,  constraints.dontRemoveHyphensFromText,  constraints.dontRemoveFullStopsFromText,  constraints.dontRemoveCommasFromText), "the co-ordinates of john's cafe are   two, three.", 8],
             ["The co-ordinates of John's café are   two, three.", merge( constraints.dontNormaliseWhiteSpaceInText,  constraints.dontRemoveApostrophesFromText,  constraints.dontRemoveHyphensFromText,  constraints.dontRemoveFullStopsFromText,  constraints.dontRemoveCommasFromText,  constraints.dontRemoveAccents), "the co-ordinates of john's café are   two, three.", 8],
-            ["The co-ordinates of John's café are   two, three.", merge( constraints.dontNormaliseWhiteSpaceInText,  constraints.dontRemoveApostrophesFromText,  constraints.dontRemoveHyphensFromText,  constraints.dontRemoveFullStopsFromText,  constraints.dontRemoveCommasFromText,  constraints.dontRemoveAccents, constraints.allowAnyCase), "The co-ordinates of John's café are   two, three.", 8],
+            ["The co-ordinates of John's café are   two, three.", merge( constraints.dontNormaliseWhiteSpaceInText,  constraints.dontRemoveApostrophesFromText,  constraints.dontRemoveHyphensFromText,  constraints.dontRemoveFullStopsFromText,  constraints.dontRemoveCommasFromText,  constraints.dontRemoveAccents, constraints.allowAnyCase), "The co-ordinates of John's café are   two, three.", 8],  ["âme", {}, "ame", 1],
+            ["île", {}, "ile", 1],
+            ["hôtel", {}, "hotel", 1],
+            ["sûr", {}, "sur", 1],
+            ["être", {}, "etre", 1],
+            ["là", {}, "la", 1],
+            ["très", {}, "tres", 1],
+            ["où", {}, "ou", 1],
+            ["été", {}, "ete", 1],
+            ["Noël", {}, "noel", 1],
+            ["maïs", {}, "mais", 1],
+            ["ambigüe", {}, "ambigue", 1],
+            ["âme", constraints.dontRemoveAccents, "âme", 1],
+            ["île", constraints.dontRemoveAccents, "île", 1],
+            ["hôtel", constraints.dontRemoveAccents, "hôtel", 1],
+            ["sûr", constraints.dontRemoveAccents, "sûr", 1],
+            ["être", constraints.dontRemoveAccents, "être", 1],
+            ["là", constraints.dontRemoveAccents, "là", 1],
+            ["très", constraints.dontRemoveAccents, "très", 1],
+            ["où", constraints.dontRemoveAccents, "où", 1],
+            ["été", constraints.dontRemoveAccents, "été", 1],
+            ["Noël", constraints.dontRemoveAccents, "noël", 1],
+            ["maïs", constraints.dontRemoveAccents, "maïs", 1],
+            ["ambigüe", constraints.dontRemoveAccents, "ambigüe", 1],
         ].forEach(a => {
             var studentsResponse = a[0];
             var constraints = a[1];
@@ -106,6 +129,16 @@ describe("Text", function () {
     describe("Validating text", function () {
         [
             ["apple", {}, true, "apple"],
+            ["apple?", {}, false, "apple"],
+            ["apple!", {}, false, "apple"],
+            ["apple:", {}, false, "apple"],
+            ["apple;", {}, false, "apple"],
+            ["apple()", {}, false, "apple"],
+            ["apple[]", {}, false, "apple"],
+            ["apple{}", {}, false, "apple"],
+            ["apple+", {}, false, "apple"],
+            ["apple*", {}, false, "apple"],
+            ["apples & pears", {}, false, "apple"],
         ["apple", {"mustHaveExactlyNWords": 0}, true, "apple"],
         ["apple", {"mustHaveExactlyNWords": 1}, true, "apple"],
         ["apple", {"mustHaveExactlyNWords": 2}, false, "apple"],
@@ -128,6 +161,10 @@ describe("Text", function () {
         ["apples, bananas, pears", {"mustHaveExactlyNWords": 8}, false, "apples bananas pears"],
         ["apples, bananas, pears", {"mustHaveExactlyNWords": 9}, false, "apples bananas pears"],
         ["apples, bananas, pears", {"mustHaveExactlyNWords": 10}, false, "apples bananas pears"],
+        ["hôtel", constraints.dontRemoveAccents, true, "hôtel"],
+        ["hotel", constraints.dontRemoveAccents, true, "hotel"],
+        ["hôtel", {}, true, "hotel"],
+        ["hotel", {}, true, "hotel"],
         ].forEach(a => {
             var studentsResponse = a[0];
             var constraints = a[1];
@@ -158,9 +195,13 @@ describe("Text", function () {
                     assert.equal(response.isAccepted, isAccepted);
                 });
 
+                if (response.isAccepted === true){
+
                 it(`The normalised response should be "${normalisedStudentsResponse}".`, function () {
                     assert.equal(response.normalisedStudentsResponse, normalisedStudentsResponse);
                 });
+
+            }
 
                 it(`The expression should have the type "text".`, function () {
                     assert.equal(text.type, "text");

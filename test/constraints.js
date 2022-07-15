@@ -101,11 +101,11 @@ export var sar = {
 }
 
 export var normaliseWhiteSpaceInText = {
-    "normaliseWhiteSpaceInText": true
+    "normalizeWhiteSpaceInText": true
 }
 
 export var dontNormaliseWhiteSpaceInText = {
-    "normaliseWhiteSpaceInText": false
+    "normalizeWhiteSpaceInText": false
 }
 
 export var removeApostrophesFromText = {
